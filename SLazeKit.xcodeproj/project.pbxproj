@@ -29,7 +29,6 @@
 		OBJ_46 /* NSManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* NSManagedObject.swift */; };
 		OBJ_47 /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* NSManagedObjectContext.swift */; };
 		OBJ_48 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* String.swift */; };
-		OBJ_49 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* URLSession.swift */; };
 		OBJ_50 /* SLazeKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* SLazeKit.swift */; };
 		OBJ_51 /* StringInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_17 /* StringInitializable.swift */; };
 /* End PBXBuildFile section */
@@ -56,7 +55,6 @@
 		OBJ_12 /* NSManagedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObject.swift; sourceTree = "<group>"; };
 		OBJ_13 /* NSManagedObjectContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContext.swift; sourceTree = "<group>"; };
 		OBJ_14 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
-		OBJ_15 /* URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
 		OBJ_16 /* SLazeKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLazeKit.swift; sourceTree = "<group>"; };
 		OBJ_17 /* StringInitializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringInitializable.swift; sourceTree = "<group>"; };
 		OBJ_20 /* SLazeKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLazeKitTests.swift; sourceTree = "<group>"; };
@@ -92,7 +90,6 @@
 				OBJ_12 /* NSManagedObject.swift */,
 				OBJ_13 /* NSManagedObjectContext.swift */,
 				OBJ_14 /* String.swift */,
-				OBJ_15 /* URLSession.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -123,7 +120,7 @@
 			name = Products;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -131,7 +128,6 @@
 				OBJ_18 /* Tests */,
 				OBJ_21 /* Products */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_7 /* Sources */ = {
@@ -219,7 +215,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_21 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -258,7 +254,6 @@
 				OBJ_46 /* NSManagedObject.swift in Sources */,
 				OBJ_47 /* NSManagedObjectContext.swift in Sources */,
 				OBJ_48 /* String.swift in Sources */,
-				OBJ_49 /* URLSession.swift in Sources */,
 				OBJ_50 /* SLazeKit.swift in Sources */,
 				OBJ_51 /* StringInitializable.swift in Sources */,
 			);
