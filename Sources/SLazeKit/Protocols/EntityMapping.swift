@@ -36,7 +36,7 @@ extension EntityMapping {
 }
 
 extension Array where Element: EntityMapping {
-    func serialized<T: NSManagedObject>(_ context: NSManagedObjectContext?) throws -> [T] {
+    public func serialized<T: NSManagedObject>(_ context: NSManagedObjectContext?) throws -> [T] {
         return try flatMap({ try $0.serialized(context) })
     }
 }
