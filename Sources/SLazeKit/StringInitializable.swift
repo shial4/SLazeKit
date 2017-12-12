@@ -1,11 +1,11 @@
 import Foundation
 
-protocol StringInitializable {
+public protocol StringInitializable {
     init?(rawValue: String)
 }
 
 extension Int: StringInitializable {
-    init?(rawValue: String) {
+    public init?(rawValue: String) {
         guard let value = Int(rawValue) else {
             return nil
         }
@@ -14,7 +14,7 @@ extension Int: StringInitializable {
 }
 
 extension Double: StringInitializable {
-    init?(rawValue: String) {
+    public init?(rawValue: String) {
         guard let value = Double(rawValue) else {
             return nil
         }
@@ -23,7 +23,7 @@ extension Double: StringInitializable {
 }
 
 extension KeyedDecodingContainerProtocol {
-    func decodeUnstable<T: Decodable & StringInitializable>(_ type: T.Type = T.self, forKey key: Key) throws -> T? {
+    public func decodeUnstable<T: Decodable & StringInitializable>(_ type: T.Type = T.self, forKey key: Key) throws -> T? {
         guard contains(key) else {
             return nil
         }
@@ -40,7 +40,7 @@ extension KeyedDecodingContainerProtocol {
         }
         return try decode(T.self, forKey: key)
     }
-    func decodeUnstable<T: Decodable & StringInitializable>(_ type: T.Type = T.self, forKey key: Key) throws -> T {
+    public func decodeUnstable<T: Decodable & StringInitializable>(_ type: T.Type = T.self, forKey key: Key) throws -> T {
         if let string = try? decode(String.self, forKey: key) {
             guard let value = T.init(rawValue: string) else {
                 throw DecodingError.dataCorruptedError(forKey: key,

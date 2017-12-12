@@ -6,7 +6,7 @@ extension NSManagedObject {
         return NSStringFromClass(self).components(separatedBy: ".").last
     }
     
-    class func find(_ context: NSManagedObjectContext?, by attributes: EntityAttribute...) throws -> NSManagedObject? {
+    public class func find(_ context: NSManagedObjectContext?, by attributes: EntityAttribute...) throws -> NSManagedObject? {
         guard let name = entityName else { return nil }
         let fetchRequest: NSFetchRequest<NSManagedObject> = NSFetchRequest<NSManagedObject>(entityName: name)
         var predicates: [NSPredicate] = []
@@ -16,7 +16,7 @@ extension NSManagedObject {
         return try context?.fetch(fetchRequest).first
     }
     
-    class func find(_ context: NSManagedObjectContext?, by attributes: [EntityAttribute]) throws -> NSManagedObject? {
+    public class func find(_ context: NSManagedObjectContext?, by attributes: [EntityAttribute]) throws -> NSManagedObject? {
         guard let name = entityName else { return nil }
         let fetchRequest: NSFetchRequest<NSManagedObject> = NSFetchRequest<NSManagedObject>(entityName: name)
         var predicates: [NSPredicate] = []

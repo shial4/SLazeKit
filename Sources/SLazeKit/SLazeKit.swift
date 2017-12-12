@@ -2,24 +2,9 @@ import Foundation
 import CoreData
 
 public typealias EntityMappingDecodable = EntityMapping & Decodable
-public typealias HTTPMethod = String
 
-extension HTTPMethod {
-    public static var GET: String { return "GET" }
-    public static var POST: String { return "POST" }
-    public static var PUT: String { return "PUT" }
-    public static var PATCH: String { return "PATCH" }
-    public static var DELETE: String { return "DELETE" }
-    public static var COPY: String { return "COPY" }
-    public static var HEAD: String { return "HEAD" }
-    public static var OPTIONS: String { return "OPTIONS" }
-    public static var LINK: String { return "LINK" }
-    public static var UNLINK: String { return "UNLINK" }
-    public static var PURGE: String { return "PURGE" }
-    public static var LOCK: String { return "LOCK" }
-    public static var UNLOCK: String { return "UNLOCK" }
-    public static var PROPFIND: String { return "PROPFIND" }
-    public static var VIEW: String { return "VIEW" }
+public enum HTTPMethod {
+    case GET, POST, PUT, PATCH, DELETE, COPY, HEAD, OPTIONS, LINK, UNLINK, PURGE, LOCK, UNLOCK, PROPFIND, VIEW
 }
 
 @available(iOS 10.0, *)
@@ -27,7 +12,7 @@ extension EntityMapping {
     public static var persistentContainer: NSPersistentContainer? { return nil }
 }
 
-class SLazeKit {
+public class SLazeKit {
     open class var basePath: String? { return nil }
     open class var basePort: Int? { return nil }
     open class var decoder: JSONDecoder { return JSONDecoder() }
@@ -156,7 +141,7 @@ extension SLazeKit {
     private class func urlRequest(_ url: URL, method: HTTPMethod?) -> URLRequest {
         var request = URLRequest(url: url)
         if let httpMethod = method {
-            request.httpMethod = httpMethod
+            request.httpMethod = String(describing: httpMethod)
         }
         return request
     }
