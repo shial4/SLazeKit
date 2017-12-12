@@ -9,11 +9,11 @@
 /* Begin PBXAggregateTarget section */
 		"SLazeKit::SLazeKitPackageTests::ProductTarget" /* SLazeKitPackageTests */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = OBJ_54 /* Build configuration list for PBXAggregateTarget "SLazeKitPackageTests" */;
+			buildConfigurationList = OBJ_53 /* Build configuration list for PBXAggregateTarget "SLazeKitPackageTests" */;
 			buildPhases = (
 			);
 			dependencies = (
-				OBJ_57 /* PBXTargetDependency */,
+				OBJ_56 /* PBXTargetDependency */,
 			);
 			name = SLazeKitPackageTests;
 			productName = SLazeKitPackageTests;
@@ -21,27 +21,28 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		625513671FDFD27F00CFF484 /* StringInitializableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625513661FDFD27F00CFF484 /* StringInitializableTests.swift */; };
 		OBJ_29 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
 		OBJ_35 /* SLazeKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* SLazeKitTests.swift */; };
 		OBJ_37 /* SLazeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "SLazeKit::SLazeKit::Product" /* SLazeKit.framework */; };
-		OBJ_44 /* EntityMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* EntityMapping.swift */; };
-		OBJ_45 /* Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* Decodable.swift */; };
-		OBJ_46 /* NSManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* NSManagedObject.swift */; };
-		OBJ_47 /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* NSManagedObjectContext.swift */; };
-		OBJ_48 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* String.swift */; };
-		OBJ_50 /* SLazeKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* SLazeKit.swift */; };
-		OBJ_51 /* StringInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_17 /* StringInitializable.swift */; };
+		OBJ_44 /* Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* Decodable.swift */; };
+		OBJ_45 /* NSManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* NSManagedObject.swift */; };
+		OBJ_46 /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* NSManagedObjectContext.swift */; };
+		OBJ_47 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* String.swift */; };
+		OBJ_48 /* EntityMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* EntityMapping.swift */; };
+		OBJ_49 /* StringInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* StringInitializable.swift */; };
+		OBJ_50 /* SLazeKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_17 /* SLazeKit.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		6255134B1FDFA47200CFF484 /* PBXContainerItemProxy */ = {
+		625513641FDFD0C000CFF484 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = "SLazeKit::SLazeKit";
 			remoteInfo = SLazeKit;
 		};
-		6255134C1FDFA47300CFF484 /* PBXContainerItemProxy */ = {
+		625513651FDFD0C000CFF484 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
@@ -51,15 +52,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		OBJ_11 /* Decodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decodable.swift; sourceTree = "<group>"; };
-		OBJ_12 /* NSManagedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObject.swift; sourceTree = "<group>"; };
-		OBJ_13 /* NSManagedObjectContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContext.swift; sourceTree = "<group>"; };
-		OBJ_14 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
-		OBJ_16 /* SLazeKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLazeKit.swift; sourceTree = "<group>"; };
-		OBJ_17 /* StringInitializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringInitializable.swift; sourceTree = "<group>"; };
+		625513661FDFD27F00CFF484 /* StringInitializableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringInitializableTests.swift; sourceTree = "<group>"; };
+		OBJ_10 /* Decodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decodable.swift; sourceTree = "<group>"; };
+		OBJ_11 /* NSManagedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObject.swift; sourceTree = "<group>"; };
+		OBJ_12 /* NSManagedObjectContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContext.swift; sourceTree = "<group>"; };
+		OBJ_13 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		OBJ_15 /* EntityMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityMapping.swift; sourceTree = "<group>"; };
+		OBJ_16 /* StringInitializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringInitializable.swift; sourceTree = "<group>"; };
+		OBJ_17 /* SLazeKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLazeKit.swift; sourceTree = "<group>"; };
 		OBJ_20 /* SLazeKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLazeKitTests.swift; sourceTree = "<group>"; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
-		OBJ_9 /* EntityMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityMapping.swift; sourceTree = "<group>"; };
 		"SLazeKit::SLazeKit::Product" /* SLazeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SLazeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"SLazeKit::SLazeKitTests::Product" /* SLazeKitTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = SLazeKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -73,7 +75,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_52 /* Frameworks */ = {
+		OBJ_51 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
@@ -83,15 +85,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		OBJ_10 /* Extensions */ = {
+		OBJ_14 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_11 /* Decodable.swift */,
-				OBJ_12 /* NSManagedObject.swift */,
-				OBJ_13 /* NSManagedObjectContext.swift */,
-				OBJ_14 /* String.swift */,
+				OBJ_15 /* EntityMapping.swift */,
+				OBJ_16 /* StringInitializable.swift */,
 			);
-			path = Extensions;
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		OBJ_18 /* Tests */ = {
@@ -106,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_20 /* SLazeKitTests.swift */,
+				625513661FDFD27F00CFF484 /* StringInitializableTests.swift */,
 			);
 			name = SLazeKitTests;
 			path = Tests/SLazeKitTests;
@@ -120,7 +121,7 @@
 			name = Products;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		OBJ_5 = {
+		OBJ_5 /*  */ = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -128,6 +129,7 @@
 				OBJ_18 /* Tests */,
 				OBJ_21 /* Products */,
 			);
+			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_7 /* Sources */ = {
@@ -141,14 +143,24 @@
 		OBJ_8 /* SLazeKit */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_9 /* EntityMapping.swift */,
-				OBJ_10 /* Extensions */,
-				OBJ_16 /* SLazeKit.swift */,
-				OBJ_17 /* StringInitializable.swift */,
+				OBJ_9 /* Extensions */,
+				OBJ_14 /* Protocols */,
+				OBJ_17 /* SLazeKit.swift */,
 			);
 			name = SLazeKit;
 			path = Sources/SLazeKit;
 			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_9 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_10 /* Decodable.swift */,
+				OBJ_11 /* NSManagedObject.swift */,
+				OBJ_12 /* NSManagedObjectContext.swift */,
+				OBJ_13 /* String.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -158,7 +170,7 @@
 			buildConfigurationList = OBJ_40 /* Build configuration list for PBXNativeTarget "SLazeKit" */;
 			buildPhases = (
 				OBJ_43 /* Sources */,
-				OBJ_52 /* Frameworks */,
+				OBJ_51 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -215,7 +227,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5;
+			mainGroup = OBJ_5 /*  */;
 			productRefGroup = OBJ_21 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -241,6 +253,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
+				625513671FDFD27F00CFF484 /* StringInitializableTests.swift in Sources */,
 				OBJ_35 /* SLazeKitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -249,13 +262,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_44 /* EntityMapping.swift in Sources */,
-				OBJ_45 /* Decodable.swift in Sources */,
-				OBJ_46 /* NSManagedObject.swift in Sources */,
-				OBJ_47 /* NSManagedObjectContext.swift in Sources */,
-				OBJ_48 /* String.swift in Sources */,
+				OBJ_44 /* Decodable.swift in Sources */,
+				OBJ_45 /* NSManagedObject.swift in Sources */,
+				OBJ_46 /* NSManagedObjectContext.swift in Sources */,
+				OBJ_47 /* String.swift in Sources */,
+				OBJ_48 /* EntityMapping.swift in Sources */,
+				OBJ_49 /* StringInitializable.swift in Sources */,
 				OBJ_50 /* SLazeKit.swift in Sources */,
-				OBJ_51 /* StringInitializable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,12 +278,12 @@
 		OBJ_38 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = "SLazeKit::SLazeKit" /* SLazeKit */;
-			targetProxy = 6255134B1FDFA47200CFF484 /* PBXContainerItemProxy */;
+			targetProxy = 625513641FDFD0C000CFF484 /* PBXContainerItemProxy */;
 		};
-		OBJ_57 /* PBXTargetDependency */ = {
+		OBJ_56 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = "SLazeKit::SLazeKitTests" /* SLazeKitTests */;
-			targetProxy = 6255134C1FDFA47300CFF484 /* PBXContainerItemProxy */;
+			targetProxy = 625513651FDFD0C000CFF484 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -303,12 +316,11 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_NS_ASSERTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DXcode";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
+				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = SWIFT_PACKAGE;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -361,11 +373,10 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_OPTIMIZATION_LEVEL = s;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_SWIFT_FLAGS = "-DXcode";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
+				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = SWIFT_PACKAGE;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -417,13 +428,13 @@
 			};
 			name = Release;
 		};
-		OBJ_55 /* Debug */ = {
+		OBJ_54 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 			};
 			name = Debug;
 		};
-		OBJ_56 /* Release */ = {
+		OBJ_55 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 			};
@@ -468,11 +479,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		OBJ_54 /* Build configuration list for PBXAggregateTarget "SLazeKitPackageTests" */ = {
+		OBJ_53 /* Build configuration list for PBXAggregateTarget "SLazeKitPackageTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				OBJ_55 /* Debug */,
-				OBJ_56 /* Release */,
+				OBJ_54 /* Debug */,
+				OBJ_55 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
