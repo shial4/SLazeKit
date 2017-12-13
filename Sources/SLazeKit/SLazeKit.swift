@@ -55,6 +55,17 @@ extension SLazeKit {
         return task
     }
     
+    class func networkTask(path: String, method: HTTPMethod? = nil, queryItems: [URLQueryItem]? = nil, body: String, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+        guard let url = components(for: path, queryItems: queryItems)?.url else {
+            handler(nil, NSError(domain: "Unable to get url from components", code: NSURLErrorBadURL, userInfo: nil))
+            return nil
+        }
+        
+        var request = urlRequest(url, method: method)
+        request.httpBody = body.data(using: .utf8)
+        return networkTask(request: request, handler: handler)
+    }
+    
     class func networkTask<B: Encodable>(path: String, method: HTTPMethod? = nil, queryItems: [URLQueryItem]? = nil, body: B, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
         guard let url = components(for: path, queryItems: queryItems)?.url else {
             handler(nil, NSError(domain: "Unable to get url from components", code: NSURLErrorBadURL, userInfo: nil))
@@ -68,6 +79,18 @@ extension SLazeKit {
             handler(nil, error)
             return nil
         }
+        
+        return networkTask(request: request, handler: handler)
+    }
+    
+    class func networkTask<T: Decodable>(path: String, method: HTTPMethod? = nil, queryItems: [URLQueryItem]? = nil, body: String, handler: @escaping (_ response: HTTPURLResponse?, _ result: T?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+        guard let url = components(for: path, queryItems: queryItems)?.url else {
+            handler(nil, nil, NSError(domain: "Unable to get url from components", code: NSURLErrorBadURL, userInfo: nil))
+            return nil
+        }
+        
+        var request = urlRequest(url, method: method)
+        request.httpBody = body.data(using: .utf8)
         
         return networkTask(request: request, handler: handler)
     }
@@ -169,6 +192,10 @@ extension SLazeKit {
 }
 
 extension SLazeKit {
+    public class func request(path: String, method: HTTPMethod, body: String, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+        return SLazeKit.networkTask(path: path, method: method, queryItems: queryItems, body: body, handler: handler)
+    }
+    
     public class func request<T: Encodable>(path: String, method: HTTPMethod, body: T, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
         return SLazeKit.networkTask(path: path, method: method, queryItems: queryItems, body: body, handler: handler)
     }
@@ -179,6 +206,10 @@ extension SLazeKit {
     
     public class func request(path: String, method: HTTPMethod, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
         return SLazeKit.networkTask(path: path, method: method, queryItems: queryItems, handler: handler)
+    }
+    
+    public class func get(path: String, body: String, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+        return SLazeKit.networkTask(path: path, queryItems: queryItems, body: body, handler: handler)
     }
     
     public class func get<T: Encodable>(path: String, body: T, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
@@ -193,6 +224,10 @@ extension SLazeKit {
         return SLazeKit.networkTask(path: path, queryItems: queryItems, handler: handler)
     }
     
+    public class func post(path: String, body: String, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+        return SLazeKit.networkTask(path: path, method: .POST, queryItems: queryItems, body: body, handler: handler)
+    }
+    
     public class func post<T: Encodable>(path: String, body: T, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
         return SLazeKit.networkTask(path: path, method: .POST, queryItems: queryItems, body: body, handler: handler)
     }
@@ -205,6 +240,10 @@ extension SLazeKit {
         return SLazeKit.networkTask(path: path, method: .POST, queryItems: queryItems, handler: handler)
     }
     
+    public class func put(path: String, body: String, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+        return SLazeKit.networkTask(path: path, method: .PUT, queryItems: queryItems, body: body, handler: handler)
+    }
+    
     public class func put<T: Encodable>(path: String, queryItems: [URLQueryItem]? = nil, body: T, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
         return SLazeKit.networkTask(path: path, method: .PUT, queryItems: queryItems, body: body, handler: handler)
     }
@@ -215,6 +254,10 @@ extension SLazeKit {
     
     public class func put(path: String, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
         return SLazeKit.networkTask(path: path, method: .PUT, queryItems: queryItems, handler: handler)
+    }
+    
+    public class func delete(path: String, body: String, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+        return SLazeKit.networkTask(path: path, method: .DELETE, queryItems: queryItems, body: body, handler: handler)
     }
     
     public class func delete<T: Encodable>(path: String, body: T, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
