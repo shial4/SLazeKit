@@ -109,7 +109,7 @@ extension Model {
             do {
                 //Result is type of `[ModelResponse]` to return array of our CoreData models we need to serialize it.
                 //result?.serialized will return `[Model]`
-                models = try result?.serialized(ModelResponse.persistentContainer?.newBackgroundContext())
+                models = try result?.serialized(SLazeKit.newBackgroundContext())
             } catch {
                 print(error)
             }
@@ -128,7 +128,7 @@ extension Model {
             do {
                 //Result of type `ModelResponse` to return CoreData model we need to serialize it.
                 //result?.serialized will return `Model`
-                models = try result?.serialized(ModelResponse.persistentContainer?.newBackgroundContext())
+                models = try result?.serialized(SLazeKit.newBackgroundContext())
             } catch {
                 print(error)
             }

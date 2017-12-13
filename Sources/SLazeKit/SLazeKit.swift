@@ -8,11 +8,6 @@ public enum HTTPMethod {
     case GET, POST, PUT, PATCH, DELETE, COPY, HEAD, OPTIONS, LINK, UNLINK, PURGE, LOCK, UNLOCK, PROPFIND, VIEW
 }
 
-@available(iOS 10.0, *)
-extension EntityMapping {
-    public static var persistentContainer: NSPersistentContainer? { return nil }
-}
-
 public class SLazeKit {
     open class var basePath: String? { return nil }
     open class var basePort: Int? { return nil }
@@ -21,6 +16,8 @@ public class SLazeKit {
     
     open class func setup(_ request: URLRequest) -> URLRequest { return request }
     open class func handle(_ response: HTTPURLResponse?) {}
+    
+    open class func newBackgroundContext() -> NSManagedObjectContext? { return nil }
 }
 
 //MARK: network tasks implementation
@@ -40,9 +37,7 @@ extension SLazeKit {
             if let data = data, error == nil {
                 do {
                     let object = try decoder.decode(T.self, from: data)
-                    if #available(iOS 10.0, *) {
-                        try synchronize(object)
-                    }
+                    try synchronize(object)
                     handler(response as? HTTPURLResponse, object, nil)
                 } catch {
                     handler(response as? HTTPURLResponse, nil, error)
@@ -176,12 +171,8 @@ extension SLazeKit {
         urlComponents?.queryItems = queryItems
         return urlComponents
     }
-}
-
-//MARK: CoreData mapping support
-extension SLazeKit {
-    @available(iOS 10.0, *)
-    fileprivate class func synchronize(_ obj: Any) throws {
+    
+    private class func synchronize(_ obj: Any) throws {
         if let array = obj as? [EntityMapping] {
             array.forEach({_ = try? $0.map()})
         } else {
