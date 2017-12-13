@@ -1,6 +1,7 @@
 import Foundation
 import CoreData
 
+public typealias EntityMappingCodable = EntityMapping & Codable
 public typealias EntityMappingDecodable = EntityMapping & Decodable
 
 public enum HTTPMethod {
