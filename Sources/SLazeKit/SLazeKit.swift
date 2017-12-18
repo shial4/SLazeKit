@@ -4,6 +4,8 @@ import CoreData
 public typealias EntityMappingCodable = EntityMapping & Codable
 public typealias EntityMappingDecodable = EntityMapping & Decodable
 
+public typealias NetworkResponse = (data: Data?, urlResponse: HTTPURLResponse?)
+
 public enum HTTPMethod {
     case GET, POST, PUT, PATCH, DELETE, COPY, HEAD, OPTIONS, LINK, UNLINK, PURGE, LOCK, UNLOCK, PROPFIND, VIEW
 }
@@ -22,37 +24,37 @@ public class SLazeKit {
 
 //MARK: network tasks implementation
 extension SLazeKit {
-    class func networkTask(request: URLRequest, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+    class func networkTask(request: URLRequest, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
         let task = urlSession.dataTask(with: setup(request)) { (data, response, error) in
             handle(response as? HTTPURLResponse)
-            handler(response as? HTTPURLResponse, error)
+            handler((data, response as? HTTPURLResponse), error)
         }
         task.resume()
         return task
     }
     
-    class func networkTask<T: Decodable>(request: URLRequest, handler: @escaping (_ response: HTTPURLResponse?, _ result: T?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+    class func networkTask<T: Decodable>(request: URLRequest, handler: @escaping (_ response: NetworkResponse, _ result: T?, _ error: Error?) -> ()) -> URLSessionDataTask? {
         let task = urlSession.dataTask(with: setup(request)) { (data, response, error) in
             handle(response as? HTTPURLResponse)
             if let data = data, error == nil {
                 do {
                     let object = try decoder.decode(T.self, from: data)
                     try synchronize(object)
-                    handler(response as? HTTPURLResponse, object, nil)
+                    handler((data, response as? HTTPURLResponse), object, nil)
                 } catch {
-                    handler(response as? HTTPURLResponse, nil, error)
+                    handler((data, response as? HTTPURLResponse), nil, error)
                 }
             } else {
-                handler(response as? HTTPURLResponse, nil, error)
+                handler((data, response as? HTTPURLResponse), nil, error)
             }
         }
         task.resume()
         return task
     }
     
-    class func networkTask(path: String, method: HTTPMethod? = nil, queryItems: [URLQueryItem]? = nil, body: String, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+    class func networkTask(path: String, method: HTTPMethod? = nil, queryItems: [URLQueryItem]? = nil, body: String, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
         guard let url = components(for: path, queryItems: queryItems)?.url else {
-            handler(nil, NSError(domain: "Unable to get url from components", code: NSURLErrorBadURL, userInfo: nil))
+            handler((nil,nil), NSError(domain: "Unable to get url from components", code: NSURLErrorBadURL, userInfo: nil))
             return nil
         }
         
@@ -61,9 +63,9 @@ extension SLazeKit {
         return networkTask(request: request, handler: handler)
     }
     
-    class func networkTask<B: Encodable>(path: String, method: HTTPMethod? = nil, queryItems: [URLQueryItem]? = nil, body: B, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+    class func networkTask<B: Encodable>(path: String, method: HTTPMethod? = nil, queryItems: [URLQueryItem]? = nil, body: B, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
         guard let url = components(for: path, queryItems: queryItems)?.url else {
-            handler(nil, NSError(domain: "Unable to get url from components", code: NSURLErrorBadURL, userInfo: nil))
+            handler((nil,nil), NSError(domain: "Unable to get url from components", code: NSURLErrorBadURL, userInfo: nil))
             return nil
         }
         
@@ -71,16 +73,16 @@ extension SLazeKit {
         do {
             request.httpBody = try JSONEncoder().encode(body)
         } catch {
-            handler(nil, error)
+            handler((nil,nil), error)
             return nil
         }
         
         return networkTask(request: request, handler: handler)
     }
     
-    class func networkTask<T: Decodable>(path: String, method: HTTPMethod? = nil, queryItems: [URLQueryItem]? = nil, body: String, handler: @escaping (_ response: HTTPURLResponse?, _ result: T?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+    class func networkTask<T: Decodable>(path: String, method: HTTPMethod? = nil, queryItems: [URLQueryItem]? = nil, body: String, handler: @escaping (_ response: NetworkResponse, _ result: T?, _ error: Error?) -> ()) -> URLSessionDataTask? {
         guard let url = components(for: path, queryItems: queryItems)?.url else {
-            handler(nil, nil, NSError(domain: "Unable to get url from components", code: NSURLErrorBadURL, userInfo: nil))
+            handler((nil,nil), nil, NSError(domain: "Unable to get url from components", code: NSURLErrorBadURL, userInfo: nil))
             return nil
         }
         
@@ -90,9 +92,9 @@ extension SLazeKit {
         return networkTask(request: request, handler: handler)
     }
     
-    class func networkTask<T: Decodable, B: Encodable>(path: String, method: HTTPMethod? = nil, queryItems: [URLQueryItem]? = nil, body: B, handler: @escaping (_ response: HTTPURLResponse?, _ result: T?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+    class func networkTask<T: Decodable, B: Encodable>(path: String, method: HTTPMethod? = nil, queryItems: [URLQueryItem]? = nil, body: B, handler: @escaping (_ response: NetworkResponse, _ result: T?, _ error: Error?) -> ()) -> URLSessionDataTask? {
         guard let url = components(for: path, queryItems: queryItems)?.url else {
-            handler(nil, nil, NSError(domain: "Unable to get url from components", code: NSURLErrorBadURL, userInfo: nil))
+            handler((nil,nil), nil, NSError(domain: "Unable to get url from components", code: NSURLErrorBadURL, userInfo: nil))
             return nil
         }
         
@@ -100,16 +102,16 @@ extension SLazeKit {
         do {
             request.httpBody = try JSONEncoder().encode(body)
         } catch {
-            handler(nil, nil, error)
+            handler((nil,nil), nil, error)
             return nil
         }
         
         return networkTask(request: request, handler: handler)
     }
     
-    class func networkTask<B: Encodable>(path: String, method: HTTPMethod? = nil, queryItems: [URLQueryItem]? = nil, body: [B], handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+    class func networkTask<B: Encodable>(path: String, method: HTTPMethod? = nil, queryItems: [URLQueryItem]? = nil, body: [B], handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
         guard let url = components(for: path, queryItems: queryItems)?.url else {
-            handler(nil, NSError(domain: "Unable to get url from components", code: NSURLErrorBadURL, userInfo: nil))
+            handler((nil,nil), NSError(domain: "Unable to get url from components", code: NSURLErrorBadURL, userInfo: nil))
             return nil
         }
         
@@ -117,16 +119,16 @@ extension SLazeKit {
         do {
             request.httpBody = try JSONEncoder().encode(body)
         } catch {
-            handler(nil, error)
+            handler((nil,nil), error)
             return nil
         }
         
         return networkTask(request: request, handler: handler)
     }
     
-    class func networkTask<T: Decodable, B: Encodable>(path: String, method: HTTPMethod? = nil, queryItems: [URLQueryItem]? = nil, body: [B], handler: @escaping (_ response: HTTPURLResponse?, _ result: T?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+    class func networkTask<T: Decodable, B: Encodable>(path: String, method: HTTPMethod? = nil, queryItems: [URLQueryItem]? = nil, body: [B], handler: @escaping (_ response: NetworkResponse, _ result: T?, _ error: Error?) -> ()) -> URLSessionDataTask? {
         guard let url = components(for: path, queryItems: queryItems)?.url else {
-            handler(nil, nil, NSError(domain: "Unable to get url from components", code: NSURLErrorBadURL, userInfo: nil))
+            handler((nil,nil), nil, NSError(domain: "Unable to get url from components", code: NSURLErrorBadURL, userInfo: nil))
             return nil
         }
         
@@ -134,24 +136,24 @@ extension SLazeKit {
         do {
             request.httpBody = try JSONEncoder().encode(body)
         } catch {
-            handler(nil, nil, error)
+            handler((nil,nil), nil, error)
             return nil
         }
         
         return networkTask(request: request, handler: handler)
     }
     
-    class func networkTask(path: String, method: HTTPMethod? = nil, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+    class func networkTask(path: String, method: HTTPMethod? = nil, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
         guard let url = components(for: path, queryItems: queryItems)?.url else {
-            handler(nil, NSError(domain: "Unable to get url from components", code: NSURLErrorBadURL, userInfo: nil))
+            handler((nil,nil), NSError(domain: "Unable to get url from components", code: NSURLErrorBadURL, userInfo: nil))
             return nil
         }
         return networkTask(request: urlRequest(url, method: method), handler: handler)
     }
     
-    class func networkTask<T: Decodable>(path: String, method: HTTPMethod? = nil, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: HTTPURLResponse?, _ result: T?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+    class func networkTask<T: Decodable>(path: String, method: HTTPMethod? = nil, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ result: T?, _ error: Error?) -> ()) -> URLSessionDataTask? {
         guard let url = components(for: path, queryItems: queryItems)?.url else {
-            handler(nil, nil, NSError(domain: "Unable to get url from components", code: NSURLErrorBadURL, userInfo: nil))
+            handler((nil,nil), nil, NSError(domain: "Unable to get url from components", code: NSURLErrorBadURL, userInfo: nil))
             return nil
         }
         return networkTask(request: urlRequest(url, method: method), handler: handler)
@@ -183,83 +185,83 @@ extension SLazeKit {
 }
 
 extension SLazeKit {
-    public class func request(path: String, method: HTTPMethod, body: String, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+    public class func request(path: String, method: HTTPMethod, body: String, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
         return SLazeKit.networkTask(path: path, method: method, queryItems: queryItems, body: body, handler: handler)
     }
     
-    public class func request<T: Encodable>(path: String, method: HTTPMethod, body: T, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+    public class func request<T: Encodable>(path: String, method: HTTPMethod, body: T, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
         return SLazeKit.networkTask(path: path, method: method, queryItems: queryItems, body: body, handler: handler)
     }
     
-    public class func request<T: Encodable>(path: String, method: HTTPMethod, body: [T], queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+    public class func request<T: Encodable>(path: String, method: HTTPMethod, body: [T], queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
         return SLazeKit.networkTask(path: path, method: method, queryItems: queryItems, body: body, handler: handler)
     }
     
-    public class func request(path: String, method: HTTPMethod, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+    public class func request(path: String, method: HTTPMethod, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
         return SLazeKit.networkTask(path: path, method: method, queryItems: queryItems, handler: handler)
     }
     
-    public class func get(path: String, body: String, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+    public class func get(path: String, body: String, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
         return SLazeKit.networkTask(path: path, queryItems: queryItems, body: body, handler: handler)
     }
     
-    public class func get<T: Encodable>(path: String, body: T, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+    public class func get<T: Encodable>(path: String, body: T, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
         return SLazeKit.networkTask(path: path, queryItems: queryItems, body: body, handler: handler)
     }
     
-    public class func get<T: Encodable>(path: String, body: [T], queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+    public class func get<T: Encodable>(path: String, body: [T], queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
         return SLazeKit.networkTask(path: path, queryItems: queryItems, body: body, handler: handler)
     }
     
-    public class func get(path: String, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+    public class func get(path: String, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
         return SLazeKit.networkTask(path: path, queryItems: queryItems, handler: handler)
     }
     
-    public class func post(path: String, body: String, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+    public class func post(path: String, body: String, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
         return SLazeKit.networkTask(path: path, method: .POST, queryItems: queryItems, body: body, handler: handler)
     }
     
-    public class func post<T: Encodable>(path: String, body: T, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+    public class func post<T: Encodable>(path: String, body: T, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
         return SLazeKit.networkTask(path: path, method: .POST, queryItems: queryItems, body: body, handler: handler)
     }
     
-    public class func post<T: Encodable>(path: String, body: [T], queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+    public class func post<T: Encodable>(path: String, body: [T], queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
         return SLazeKit.networkTask(path: path, method: .POST, queryItems: queryItems, body: body, handler: handler)
     }
     
-    public class func post(path: String, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+    public class func post(path: String, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
         return SLazeKit.networkTask(path: path, method: .POST, queryItems: queryItems, handler: handler)
     }
     
-    public class func put(path: String, body: String, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+    public class func put(path: String, body: String, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
         return SLazeKit.networkTask(path: path, method: .PUT, queryItems: queryItems, body: body, handler: handler)
     }
     
-    public class func put<T: Encodable>(path: String, queryItems: [URLQueryItem]? = nil, body: T, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+    public class func put<T: Encodable>(path: String, queryItems: [URLQueryItem]? = nil, body: T, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
         return SLazeKit.networkTask(path: path, method: .PUT, queryItems: queryItems, body: body, handler: handler)
     }
     
-    public class func put<T: Encodable>(path: String, queryItems: [URLQueryItem]? = nil, body: [T], handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+    public class func put<T: Encodable>(path: String, queryItems: [URLQueryItem]? = nil, body: [T], handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
         return SLazeKit.networkTask(path: path, method: .PUT, queryItems: queryItems, body: body, handler: handler)
     }
     
-    public class func put(path: String, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+    public class func put(path: String, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
         return SLazeKit.networkTask(path: path, method: .PUT, queryItems: queryItems, handler: handler)
     }
     
-    public class func delete(path: String, body: String, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+    public class func delete(path: String, body: String, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
         return SLazeKit.networkTask(path: path, method: .DELETE, queryItems: queryItems, body: body, handler: handler)
     }
     
-    public class func delete<T: Encodable>(path: String, body: T, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+    public class func delete<T: Encodable>(path: String, body: T, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
         return SLazeKit.networkTask(path: path, method: .DELETE, queryItems: queryItems, body: body, handler: handler)
     }
     
-    public class func delete<T: Encodable>(path: String, body: [T], queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+    public class func delete<T: Encodable>(path: String, body: [T], queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
         return SLazeKit.networkTask(path: path, method: .DELETE, queryItems: queryItems, body: body, handler: handler)
     }
     
-    public class func delete(path: String, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: HTTPURLResponse?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+    public class func delete(path: String, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
         return SLazeKit.networkTask(path: path, method: .DELETE, queryItems: queryItems, handler: handler)
     }
 }
