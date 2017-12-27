@@ -1,18 +1,19 @@
 import Foundation
 import CoreData
 
+/// Entity attribute alias for key, value tuple.
 public typealias EntityAttribute = (key: String, value: Any)
 
+/// Mapping protocol. Required for request object serialization.
 public protocol EntityMapping {
     static var entityType: NSManagedObject.Type { get }
     var idAttributes: [EntityAttribute]? { get }
     func fillObject(with model: NSManagedObject)
 }
 
-@available(iOS 10.0, *)
 extension EntityMapping {
     func map() throws -> NSManagedObject? {
-        guard let context = Self.persistentContainer?.newBackgroundContext() else { return nil }
+        guard let context = SLazeKit.newBackgroundContext() else { return nil }
         let model: NSManagedObject
         if let attribiutes = idAttributes {
             model = try Self.entityType.find(context, by: attribiutes) ?? Self.entityType.init(context: context)
@@ -23,20 +24,27 @@ extension EntityMapping {
         context.performAndWait { context.commit() }
         return model
     }
-    
     private func findObject(_ context: NSManagedObjectContext?) throws -> NSManagedObject? {
         return try Self.entityType.find(context, by: idAttributes ?? [])
     }
-}
-
-extension EntityMapping {
+    
+    /// Serialized managed object from datastore by given attribiutes. To be more specific. If request is returning JSON with `EntityMapping` and given Encodable object conform to this protocol. It will be automaticaly updated in DataStore. This method featch this object.
+    ///
+    /// - Parameter context: Context on which fetch should be executed
+    /// - Returns: Serialized object from EntityMapping model
     public func serialized<T: NSManagedObject>(_ context: NSManagedObjectContext?) throws -> T? {
         return (try Self.entityType.find(context, by: idAttributes ?? [])) as? T
     }
 }
 
 extension Array where Element: EntityMapping {
+    /// Serialized managed objects from datastore by given attribiutes. To be more specific. If request is returning JSON with `EntityMapping` and given Encodable object conform to this protocol. It will be automaticaly updated in DataStore. This method featch this objects.
+    ///
+    /// - Parameter context: Context on which fetch should be executed
+    /// - Returns: Array of serialized object from EntityMapping response type.
     public func serialized<T: NSManagedObject>(_ context: NSManagedObjectContext?) throws -> [T] {
         return try flatMap({ try $0.serialized(context) })
     }
 }
+
+

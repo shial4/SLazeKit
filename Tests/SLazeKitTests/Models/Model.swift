@@ -2,13 +2,7 @@ import Foundation
 import SLazeKit
 import CoreData
 
-//First we gonna create NSManagedObject object on which we will work.
-
-/// We assume you have Model as an NSManagedObject
-class Model: NSManagedObject {}
-
-// MARK: - Simulate extension for CoreData
-extension Model {
+class Model: NSManagedObject {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Model> {
         return NSFetchRequest<Model>(entityName: "Model")
     }
@@ -16,11 +10,7 @@ extension Model {
     @NSManaged public var id: String
     @NSManaged public var value: Double
     @NSManaged public var name: String?
-}
-
-
-// MARK: - SLazeKit extension
-extension Model {
+    
     /// Path pattern for our model API requests
     public struct PathPattern {
         static var model: String { return "/api/Models/:modelId" }
@@ -53,7 +43,6 @@ extension Model {
             object.name = name
         }
     }
-    
     /// We could skip that and add `Encodable` to our ModelResponse. But to highlight it. We will create separate one for request purpose
     public struct ModelRequest: Encodable {
         var id: String
@@ -66,9 +55,6 @@ extension Model {
             self.name = model.name
         }
     }
-}
-
-extension Model {
     /// Create request. Called from SLazeKit. Response is not maped or serialized.
     ///
     /// - Parameters:
@@ -77,7 +63,7 @@ extension Model {
         /// SLazeKit request are done i background. To handle response on main thread we need to dispatch it.
         let _ = SLazeKit.post(path: PathPattern.create.patternToPath(with: ["modelId":model.id]), body: ModelRequest(with: model)) { (response, error) in
             guard error == nil else {
-                DispatchQueue.main.async { failure?(response?.statusCode ?? -1,error) }
+                DispatchQueue.main.async { failure?(response.urlResponse?.statusCode ?? -1,error) }
                 return
             }
             DispatchQueue.main.async { success() }
@@ -87,19 +73,24 @@ extension Model {
     ///
     /// - Parameters:
     ///   - modelId: model id used to replace key string in path pattern.
+    ///
+    /// SLazeKit request are done i background. To handle response on main thread we need to dispatch it.
     class func remove(for modelId: String, success: @escaping (() ->()), failure: ((_ statusCode: Int, _ error: Error?) ->())? = nil) {
-        /// SLazeKit request are done i background. To handle response on main thread we need to dispatch it.
         let _ = SLazeKit.delete(path: PathPattern.delete.patternToPath(with: ["modelId":modelId])) { (response, error) in
-                                                                                    guard error == nil else {
-                                                                                        DispatchQueue.main.async { failure?(response?.statusCode ?? -1,error) }
-                                                                                        return
-                                                                                    }
-                                                                                    DispatchQueue.main.async { success() }
+            guard error == nil else {
+                DispatchQueue.main.async { failure?(response.urlResponse?.statusCode ?? -1,error) }
+                return
+            }
+            DispatchQueue.main.async { success() }
         }
     }
     /// `[ModelResponse]` Stands as a result type. Decodable provides generic requests. if Response model beside `Decodable` comforms to `EntityMapping` as well it will be serialized.
+    ///
+    /// [ModelResponse] Decodable type used to generate result type.
+    ///
+    ///Result is type of `[ModelResponse]` to return array of our CoreData models we need to serialize it.
+    ///`result?.serialized` will return `[Model]`
     class func getFromServer(success: @escaping (([Model]?) ->()), failure: (() ->())? = nil) {
-        /// [ModelResponse] Decodable type used to generate result type.
         let _ = [ModelResponse].get(path: PathPattern.models.patternToPath()) { (response, result, error) in
             guard error == nil else {
                 failure?()
@@ -107,18 +98,19 @@ extension Model {
             }
             var models: [Model]? = nil
             do {
-                //Result is type of `[ModelResponse]` to return array of our CoreData models we need to serialize it.
-                //result?.serialized will return `[Model]`
-                models = try result?.serialized(ModelResponse.persistentContainer?.newBackgroundContext())
+                models = try result?.serialized(SLazeKit.newBackgroundContext())
             } catch {
                 print(error)
             }
             success(models)
         }
     }
-    
+    /// In this example API request will decode single object of type ModelResponse instead of an array.
+    ///
+    ///Result of type `ModelResponse` to return CoreData model we need to serialize it.
+    ///
+    ///`result?.serialized` will return `Model`
     class func getFromServer(for modelId: String, success: @escaping ((Model?) ->()), failure: (() ->())? = nil) {
-        /// in this example API request will decode single object of type ModelResponse instead of an array.
         let _ = ModelResponse.get(path: PathPattern.model.patternToPath(with: ["modelId":modelId])) { (response, result, error) in
             guard error == nil else {
                 failure?()
@@ -126,9 +118,7 @@ extension Model {
             }
             var models: Model? = nil
             do {
-                //Result of type `ModelResponse` to return CoreData model we need to serialize it.
-                //result?.serialized will return `Model`
-                models = try result?.serialized(ModelResponse.persistentContainer?.newBackgroundContext())
+                models = try result?.serialized(SLazeKit.newBackgroundContext())
             } catch {
                 print(error)
             }
