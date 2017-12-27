@@ -51,10 +51,13 @@ For positive experience, you should configure `SLazeKit` at first. This step is 
 
 ```swift
 import SLazeKit
-/// Required override of this method which will provide Context for bacground execution.
-///
-/// - Returns: NSManagedObjectContext
-open class func newBackgroundContext() -> NSManagedObjectContext? { return nil }
+
+extension SLazeKit {
+    /// Required override of this method which will provide Context for bacground execution.
+    ///
+    /// - Returns: NSManagedObjectContext
+    open class func newBackgroundContext() -> NSManagedObjectContext? { return nil }
+}
 ```
  This step is optional. You may leave it as it is default.
 ```swift
