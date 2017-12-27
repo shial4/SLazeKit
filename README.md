@@ -51,6 +51,7 @@ For positive experience, you should configure `SLazeKit` at first. This step is 
 
 ```swift
 import SLazeKit
+
 extension SLazeKit {
     //Provide base path for your API requests.
     open class var basePath?: String { return "www.yourdomain.com" }
@@ -78,6 +79,9 @@ extension SLazeKit {
 ```
 
 **Model example**
+Simple
+[Object.swift](Tests/SLazeKitTests/Models/Object.swift)
+Advance
 [Model.swift](Tests/SLazeKitTests/Models/Model.swift)
 
 ## ⭐ Contributing

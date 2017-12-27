@@ -65,6 +65,22 @@ extension Decodable {
         return SLazeKit.networkTask(path: path, method: .PUT, queryItems: queryItems, handler: handler)
     }
     
+    public static func patch(path: String, body: String, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ result: Self?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+        return SLazeKit.networkTask(path: path, method: .PATCH, queryItems: queryItems, body: body, handler: handler)
+    }
+    
+    public static func patch<T: Encodable>(path: String, body: T, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ result: Self?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+        return SLazeKit.networkTask(path: path, method: .PATCH, queryItems: queryItems, body: body, handler: handler)
+    }
+    
+    public static func patch<T: Encodable>(path: String, body: [T], queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ result: Self?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+        return SLazeKit.networkTask(path: path, method: .PATCH, queryItems: queryItems, body: body, handler: handler)
+    }
+    
+    public static func patch(path: String, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ result: Self?, _ error: Error?) -> ()) -> URLSessionDataTask? {
+        return SLazeKit.networkTask(path: path, method: .PATCH, queryItems: queryItems, handler: handler)
+    }
+    
     public static func delete(path: String, body: String, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ result: Self?, _ error: Error?) -> ()) -> URLSessionDataTask? {
         return SLazeKit.networkTask(path: path, method: .DELETE, queryItems: queryItems, body: body, handler: handler)
     }

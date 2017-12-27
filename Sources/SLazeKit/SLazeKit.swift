@@ -20,10 +20,7 @@ public class SLazeKit {
     open class func handle(_ response: HTTPURLResponse?) {}
     
     open class func newBackgroundContext() -> NSManagedObjectContext? { return nil }
-}
-
-//MARK: network tasks implementation
-extension SLazeKit {
+    
     class func networkTask(request: URLRequest, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
         let task = urlSession.dataTask(with: setup(request)) { (data, response, error) in
             handle(response as? HTTPURLResponse)
@@ -247,6 +244,22 @@ extension SLazeKit {
     
     public class func put(path: String, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
         return SLazeKit.networkTask(path: path, method: .PUT, queryItems: queryItems, handler: handler)
+    }
+    
+    public class func patch(path: String, body: String, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
+        return SLazeKit.networkTask(path: path, method: .PATCH, queryItems: queryItems, body: body, handler: handler)
+    }
+    
+    public class func patch<T: Encodable>(path: String, body: T, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
+        return SLazeKit.networkTask(path: path, method: .PATCH, queryItems: queryItems, body: body, handler: handler)
+    }
+    
+    public class func patch<T: Encodable>(path: String, body: [T], queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
+        return SLazeKit.networkTask(path: path, method: .PATCH, queryItems: queryItems, body: body, handler: handler)
+    }
+    
+    public class func patch(path: String, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
+        return SLazeKit.networkTask(path: path, method: .PATCH, queryItems: queryItems, handler: handler)
     }
     
     public class func delete(path: String, body: String, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {
