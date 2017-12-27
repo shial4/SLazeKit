@@ -4,21 +4,35 @@ import CoreData
 public typealias EntityMappingCodable = EntityMapping & Codable
 public typealias EntityMappingDecodable = EntityMapping & Decodable
 
+/// NetworkResponse tuple holding response `Data` and `HTTPURLResponse`
 public typealias NetworkResponse = (data: Data?, urlResponse: HTTPURLResponse?)
 
+/// HTTPMethod types
 public enum HTTPMethod {
     case GET, POST, PUT, PATCH, DELETE, COPY, HEAD, OPTIONS, LINK, UNLINK, PURGE, LOCK, UNLOCK, PROPFIND, VIEW
 }
 
+/// SLazeKit is an easy to use restful collection of extensions and classes. Maps your rest api request into models and provides coredata serialization.
 public class SLazeKit {
+    /// Provide base path for your API requests.
     open class var basePath: String? { return nil }
+    /// Additional you can set port for your requests.
     open class var basePort: Int? { return nil }
+    /// Optional provider for JSONDecoder instance.
     open class var decoder: JSONDecoder { return JSONDecoder() }
+    /// Optional provider for JSONDecoder instance.
     open class var urlSession: URLSession { return URLSession.shared }
     
+    /// Global outgoing `URLRequest` customization. Called everytime request is created before executed.
+    ///
+    /// - Parameter request: `URLRequest` object to setup
+    /// - Returns: already setup and customize URLRequest object
     open class func setup(_ request: URLRequest) -> URLRequest { return request }
     open class func handle(_ response: HTTPURLResponse?) {}
     
+    /// Required override of this method which will provide Context for bacground execution.
+    ///
+    /// - Returns: NSManagedObjectContext
     open class func newBackgroundContext() -> NSManagedObjectContext? { return nil }
     
     class func networkTask(request: URLRequest, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> ()) -> URLSessionDataTask? {

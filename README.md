@@ -15,7 +15,7 @@
         </a>
 </p>
 
-SLazeKit is an easy to use Swift restfull collection of extensions and classes. Don't spend hours writing your code to map your rest api request into models and coredata serialization. Stop wasting your time!
+SLazeKit is an easy to use Swift restful collection of extensions and classes. Don't spend hours writing your code to map your rest api request into models and coredata serialization. Stop wasting your time!
 
 **SLazeKit allows you:**
 - map your models by  `Codable` protocol
@@ -47,8 +47,16 @@ This project demonstrates a working method for using Swift Package Manager (SPM)
 
 ## 💊 Usage
 
-For positive experience, you should configure `SLazeKit` at first. This step is optional. You may leave it as it is default.
+For positive experience, you should configure `SLazeKit` at first. This step is REQUIRED!
 
+```swift
+import SLazeKit
+/// Required override of this method which will provide Context for bacground execution.
+///
+/// - Returns: NSManagedObjectContext
+open class func newBackgroundContext() -> NSManagedObjectContext? { return nil }
+```
+ This step is optional. You may leave it as it is default.
 ```swift
 import SLazeKit
 
