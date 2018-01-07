@@ -14,15 +14,25 @@ public protocol EntityMapping {
 extension EntityMapping {
     func map() throws -> NSManagedObject? {
         guard let context = SLazeKit.newBackgroundContext() else { return nil }
-        let model: NSManagedObject
+        var model: NSManagedObject? = nil
+        var mapError: Error?
         context.performAndWait {
-            if let attribiutes = idAttributes {
-                model = try Self.entityType.find(context, by: attribiutes) ?? Self.entityType.init(context: context)
-            } else {
-                model = try findObject(context) ?? Self.entityType.init(context: context)
+            do {
+                if let attribiutes = idAttributes {
+                    model = try Self.entityType.find(context, by: attribiutes) ?? Self.entityType.init(context: context)
+                } else {
+                    model = try findObject(context) ?? Self.entityType.init(context: context)
+                }
+                if let object = model {
+                    fillObject(with: object)
+                }
+                context.commit()
+            } catch {
+                mapError = error
             }
-            fillObject(with: model)
-            context.commit()
+        }
+        if let error = mapError {
+            throw error
         }
         return model
     }
