@@ -22,6 +22,43 @@ SLazeKit is an easy to use Swift restful collection of extensions and classes. D
 - serialize `CoreData` models from API response
 - fast and simple extend your models with `API` & `CoreData`
 
+<p align="center">
+<img src="Content/SLazeKit.png">
+</p>
+
+- The type `ResponseModel` is a result object type for result callback argument. If you want to decode array you simple execute method on `[ResponseModel]` type.
+- The `error`  indicates why the request failed, or nil if the request was successful. it include `EntityMaping` errors, url preparation error and so on. If a response from the server is received, regardless of whether the request completes successfully or fails, the response parameter contains that information.
+- The `response` provides tuple with  HTTPURLResponse object and the data returned by the server.
+- The request handler is executed on the `URLSession` delegate queue.
+```swift
+class func getRequest(for modelId: String, success: @escaping ((Model?) ->()), failure: (() ->())? = nil) throws {
+    let _ = ResponseModel.get(path: PathPattern.model.patternToPath(with: ["modelId":modelId])) { (response, result, error) in
+    guard response?.urlResponse?.statusCode == 200 && error == nil else {
+        failure?()
+        return
+    }
+    success(try result?.serialized(SLazeKit.newBackgroundContext()) as? Model)
+    }
+}
+```
+
+If `ResponseModel` conforms to `EntityMapping` protocol it will be synchronize with CoreData. That means if mode object already exist it will update it or creat new instance and fill `NSManagedObject` with response data. You can serialize your response to recive `CoreData` object on given context by:
+
+```swift
+try result?.serialized(NSManagedObjectContext) as? Model)
+```
+
+Calling this method simple query `NSManagedObject` which was synchronize before by given object id.
+
+**Models example**
+
+Simple
+[Object.swift](Tests/SLazeKitTests/Models/Object.swift)
+Advance
+[Model.swift](Tests/SLazeKitTests/Models/Model.swift)
+
+
+
 ## 🔧 Installation
 
 **CocoaPods:**
@@ -88,12 +125,6 @@ extension SLazeKit {
     }
 }
 ```
-
-**Model example**
-Simple
-[Object.swift](Tests/SLazeKitTests/Models/Object.swift)
-Advance
-[Model.swift](Tests/SLazeKitTests/Models/Model.swift)
 
 ## ⭐ Contributing
 
