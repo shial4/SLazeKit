@@ -26,6 +26,7 @@ SLazeKit is an easy to use Swift restful collection of extensions and classes. D
 <img src="Content/SLazeKit.png">
 </p>
 
+- This request will use default configuration scheme.
 - The type `ResponseModel` is a result object type for result callback argument. If you want to decode array you simple execute method on `[ResponseModel]` type.
 - The `error`  indicates why the request failed, or nil if the request was successful. it include `EntityMaping` errors, url preparation error and so on. If a response from the server is received, regardless of whether the request completes successfully or fails, the response parameter contains that information.
 - The `response` provides tuple with  HTTPURLResponse object and the data returned by the server.
@@ -57,7 +58,14 @@ Simple
 Advance
 [Model.swift](Tests/SLazeKitTests/Models/Model.swift)
 
+In case of any other configuration you can use `Laze`
 
+```swift
+//Laze<C: LazeConfiguration, D: Decodable>
+Laze<Default, ResponseModel>.get( // Default configuration, result in ResponseModel model
+SLazeKit<Default>.get( // Default configuration, no result model
+ResponseModel.get( // Default configuration, result in ResponseModel model
+```
 
 ## 🔧 Installation
 
@@ -84,23 +92,15 @@ This project demonstrates a working method for using Swift Package Manager (SPM)
 
 ## 💊 Usage
 
-For positive experience, you should configure `SLazeKit` at first. This step is REQUIRED!
+For positive experience, you should configure `SLazeKit` at first.
+
+SLazeKit in default configuration uses `Default` class which conforms to `LazeConfiguration` protocol.
+I do recommand extend `Default` configuration. Moreover , If you have more then one API in your project. You can create as many as needed configurations schemes by creating your own object which do conform to `LazeConfiguration` protocol.
 
 ```swift
 import SLazeKit
 
-extension SLazeKit {
-    /// Required override of this method which will provide Context for bacground execution.
-    ///
-    /// - Returns: NSManagedObjectContext
-    open class func newBackgroundContext() -> NSManagedObjectContext? { return nil }
-}
-```
- This step is optional. You may leave it as it is default.
-```swift
-import SLazeKit
-
-extension SLazeKit {
+extension Default {
     //Provide base path for your API requests.
     open class var basePath: String? { return "www.yourdomain.com" }
     //Additional you can set port for your requests.
@@ -123,6 +123,11 @@ extension SLazeKit {
             Client.logout()
         }
     }
+    
+    /// Required override of this method which will provide Context for bacground execution.
+    ///
+    /// - Returns: NSManagedObjectContext
+    open class func newBackgroundContext() -> NSManagedObjectContext? { return nil }
 }
 ```
 
