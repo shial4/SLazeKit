@@ -186,12 +186,14 @@ public class SLazeKit {
     }
     
     private class func synchronize(_ obj: Any) throws {
+        guard let context = newBackgroundContext() else { return }
         if let array = obj as? [EntityMapping] {
-            array.forEach({_ = try? $0.map()})
+            array.forEach({_ = try? $0.map(context)})
         } else {
             guard let mapper = obj as? EntityMapping else { return }
-            _ = try mapper.map()
+            _ = try mapper.map(context)
         }
+        context.commit()
     }
 }
 

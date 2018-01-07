@@ -12,8 +12,7 @@ public protocol EntityMapping {
 }
 
 extension EntityMapping {
-    func map() throws -> NSManagedObject? {
-        guard let context = SLazeKit.newBackgroundContext() else { return nil }
+    func map(_ context: NSManagedObjectContext) throws -> NSManagedObject? {
         var model: NSManagedObject? = nil
         var mapError: Error?
         context.performAndWait {
@@ -26,7 +25,6 @@ extension EntityMapping {
                 if let object = model {
                     fillObject(with: object)
                 }
-                context.commit()
             } catch {
                 mapError = error
             }
