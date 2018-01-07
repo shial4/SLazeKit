@@ -102,7 +102,7 @@ import SLazeKit
 
 extension SLazeKit {
     //Provide base path for your API requests.
-    open class var basePath?: String { return "www.yourdomain.com" }
+    open class var basePath: String? { return "www.yourdomain.com" }
     //Additional you can set port for your requests.
     open class var basePort: Int? { return 8040  }
     //You can provide your own instance of JSONDecoder.
