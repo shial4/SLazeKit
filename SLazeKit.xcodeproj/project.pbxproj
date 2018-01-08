@@ -21,6 +21,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		623922782002D8C30018982A /* LazeConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623922762002D8C30018982A /* LazeConfiguration.swift */; };
+		6239227E2002DF1A0018982A /* Laze.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6239227D2002DF1A0018982A /* Laze.swift */; };
 		625B23AD1FF3462B001976C3 /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625B23AB1FF34625001976C3 /* Object.swift */; };
 		OBJ_32 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
 		OBJ_38 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_21 /* Model.swift */; };
@@ -54,6 +56,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		623922762002D8C30018982A /* LazeConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazeConfiguration.swift; sourceTree = "<group>"; };
+		6239227D2002DF1A0018982A /* Laze.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Laze.swift; sourceTree = "<group>"; };
 		625B23AB1FF34625001976C3 /* Object.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
 		OBJ_10 /* Decodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decodable.swift; sourceTree = "<group>"; };
 		OBJ_11 /* NSManagedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObject.swift; sourceTree = "<group>"; };
@@ -94,6 +98,7 @@
 			children = (
 				OBJ_15 /* EntityMapping.swift */,
 				OBJ_16 /* StringInitializable.swift */,
+				623922762002D8C30018982A /* LazeConfiguration.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -158,6 +163,7 @@
 			children = (
 				OBJ_9 /* Extensions */,
 				OBJ_14 /* Protocols */,
+				6239227D2002DF1A0018982A /* Laze.swift */,
 				OBJ_17 /* SLazeKit.swift */,
 			);
 			name = SLazeKit;
@@ -279,10 +285,12 @@
 			files = (
 				OBJ_49 /* Decodable.swift in Sources */,
 				OBJ_50 /* NSManagedObject.swift in Sources */,
+				6239227E2002DF1A0018982A /* Laze.swift in Sources */,
 				OBJ_51 /* NSManagedObjectContext.swift in Sources */,
 				OBJ_52 /* String.swift in Sources */,
 				OBJ_53 /* EntityMapping.swift in Sources */,
 				OBJ_54 /* StringInitializable.swift in Sources */,
+				623922782002D8C30018982A /* LazeConfiguration.swift in Sources */,
 				OBJ_55 /* SLazeKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

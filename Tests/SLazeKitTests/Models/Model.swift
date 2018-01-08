@@ -61,7 +61,7 @@ class Model: NSManagedObject {
     ///   - model: CoreData model used to post request with body of ModelRequest
     class func create(model: Model, success: @escaping (() ->()), failure: ((_ statusCode: Int, _ error: Error?) ->())? = nil) {
         /// SLazeKit request are done i background. To handle response on main thread we need to dispatch it.
-        let _ = SLazeKit.post(path: PathPattern.create.patternToPath(with: ["modelId":model.id]), body: ModelRequest(with: model)) { (response, error) in
+        let _ = SLazeKit<Default>.post(path: PathPattern.create.patternToPath(with: ["modelId":model.id]), body: ModelRequest(with: model)) { (response, error) in
             guard error == nil else {
                 DispatchQueue.main.async { failure?(response.urlResponse?.statusCode ?? -1,error) }
                 return
@@ -76,7 +76,7 @@ class Model: NSManagedObject {
     ///
     /// SLazeKit request are done i background. To handle response on main thread we need to dispatch it.
     class func remove(for modelId: String, success: @escaping (() ->()), failure: ((_ statusCode: Int, _ error: Error?) ->())? = nil) {
-        let _ = SLazeKit.delete(path: PathPattern.delete.patternToPath(with: ["modelId":modelId])) { (response, error) in
+        let _ = SLazeKit<Default>.delete(path: PathPattern.delete.patternToPath(with: ["modelId":modelId])) { (response, error) in
             guard error == nil else {
                 DispatchQueue.main.async { failure?(response.urlResponse?.statusCode ?? -1,error) }
                 return
@@ -98,7 +98,7 @@ class Model: NSManagedObject {
             }
             var models: [Model]? = nil
             do {
-                models = try result?.serialized(SLazeKit.newBackgroundContext())
+                models = try result?.serialized(Default.newBackgroundContext())
             } catch {
                 print(error)
             }
@@ -118,7 +118,49 @@ class Model: NSManagedObject {
             }
             var models: Model? = nil
             do {
-                models = try result?.serialized(SLazeKit.newBackgroundContext())
+                models = try result?.serialized(Default.newBackgroundContext())
+            } catch {
+                print(error)
+            }
+            success(models)
+        }
+    }
+    
+    /// In this example API request will decode single object of type ModelResponse instead of an array.
+    ///
+    ///Result of type `ModelResponse` to return CoreData model we need to serialize it.
+    ///
+    ///`result?.serialized` will return `Model`
+    class func getFromOtherServer(for modelId: String, success: @escaping ((Model?) ->()), failure: (() ->())? = nil) {
+        class NoneDefault: LazeConfiguration {
+            static var basePath: String? { return "www.yourdomain.com" }
+            static var basePort: Int? { return 8765  }
+            static var decoder: JSONDecoder { return JSONDecoder() }
+            static var urlSession: URLSession { return URLSession.shared }
+            
+            static func setup(_ request: URLRequest) -> URLRequest {
+                var request: URLRequest = request
+                request.setValue("Your token", forHTTPHeaderField: "X-Access-Token")
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                return request
+            }
+            
+            static func handle(_ response: HTTPURLResponse?) {
+                if response?.statusCode == 401 {
+                    print("unauthorised")
+                }
+            }
+            
+            public static func newBackgroundContext() -> NSManagedObjectContext? { return NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType) }
+        }
+        let _ = Laze<NoneDefault,ModelResponse>.get(path: PathPattern.model.patternToPath(with: ["modelId":modelId])) { (response, result, error) in
+            guard error == nil else {
+                failure?()
+                return
+            }
+            var models: Model? = nil
+            do {
+                models = try result?.serialized(Default.newBackgroundContext())
             } catch {
                 print(error)
             }
