@@ -34,6 +34,7 @@ extension EntityMapping {
         }
         return model
     }
+    
     private func findObject(_ context: NSManagedObjectContext?) throws -> NSManagedObject? {
         return try Self.entityType.find(context, by: idAttributes ?? [])
     }

@@ -3,7 +3,7 @@ import CoreData
 
 extension NSManagedObjectContext {
     /// If the context has uncommitted changes, attempts to commit unsaved changes to registered objects to the context’s parent store.
-    func commit() {
+    public func commit() {
         self.performAndWait {
             if self.hasChanges {
                 do {
