@@ -5,7 +5,7 @@ extension String {
     ///
     /// in pattern `"/api/path/:id"`
     ///
-    /// `[":id":"\(123-XYZ-321)"]` `:id` key would be replaced with `"\(123-XYZ-321)"` value.
+    /// `["id":"\(123-XYZ-321)"]` `:id` key would be replaced with `"\(123-XYZ-321)"` value.
     ///
     /// - Parameter arguments: Dictionary with key & value to replace.
     /// - Returns: Path with values instead of keys.
