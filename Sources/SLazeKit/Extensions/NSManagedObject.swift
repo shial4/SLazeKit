@@ -3,7 +3,7 @@ import CoreData
 
 extension NSManagedObject {
     /// String entity name
-    final class var entityName: String? {
+    final public class var entityName: String? {
         return NSStringFromClass(self).components(separatedBy: ".").last
     }
     /// Finds `NSManagedObject` by EntityAttribute parameters.
@@ -12,7 +12,7 @@ extension NSManagedObject {
     ///   - context: Context on which fetch should be executed
     ///   - attributes: Entity attribute mapped by key - value
     /// - Returns: Returns first object that meet the criteria specified by a given fetch request.
-    final class func find(_ context: NSManagedObjectContext?, by attributes: EntityAttribute...) throws -> NSManagedObject? {
+    final public class func find(_ context: NSManagedObjectContext?, by attributes: EntityAttribute...) throws -> NSManagedObject? {
         return try find(context, by: attributes.map {$0})
     }
     
@@ -22,7 +22,7 @@ extension NSManagedObject {
     ///   - context: Context on which fetch should be executed
     ///   - attributes: Entity attribute mapped by key - value
     /// - Returns: Returns first object that meet the criteria specified by a given fetch request.
-    final class func find(_ context: NSManagedObjectContext?, by attributes: [EntityAttribute]) throws -> NSManagedObject? {
+    final public class func find(_ context: NSManagedObjectContext?, by attributes: [EntityAttribute]) throws -> NSManagedObject? {
         guard let name = entityName else { return nil }
         let fetchRequest: NSFetchRequest<NSManagedObject> = NSFetchRequest<NSManagedObject>(entityName: name)
         var predicates: [NSPredicate] = []
