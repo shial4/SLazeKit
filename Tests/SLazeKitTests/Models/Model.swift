@@ -63,7 +63,7 @@ class Model: NSManagedObject {
         /// SLazeKit request are done i background. To handle response on main thread we need to dispatch it.
         let _ = SLazeKit<Default>.post(path: PathPattern.create.patternToPath(with: ["modelId":model.id]), body: ModelRequest(with: model)) { (response, error) in
             guard error == nil else {
-                DispatchQueue.main.async { failure?(response.urlResponse?.statusCode ?? -1,error) }
+                DispatchQueue.main.async { failure?(response.http?.statusCode ?? -1,error) }
                 return
             }
             DispatchQueue.main.async { success() }
@@ -78,7 +78,7 @@ class Model: NSManagedObject {
     class func remove(for modelId: String, success: @escaping (() ->()), failure: ((_ statusCode: Int, _ error: Error?) ->())? = nil) {
         let _ = SLazeKit<Default>.delete(path: PathPattern.delete.patternToPath(with: ["modelId":modelId])) { (response, error) in
             guard error == nil else {
-                DispatchQueue.main.async { failure?(response.urlResponse?.statusCode ?? -1,error) }
+                DispatchQueue.main.async { failure?(response.http?.statusCode ?? -1,error) }
                 return
             }
             DispatchQueue.main.async { success() }

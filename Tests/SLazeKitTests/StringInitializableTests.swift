@@ -1,3 +1,4 @@
+import Foundation
 import XCTest
 @testable import SLazeKit
 
@@ -59,7 +60,6 @@ class StringInitializableTests: XCTestCase {
             "fourthValue": 2
         }
         """.data(using: .utf8)!
-        
         
         do {
             let decoder = JSONDecoder()

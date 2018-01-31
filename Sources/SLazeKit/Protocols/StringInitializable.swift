@@ -13,7 +13,7 @@ extension KeyedDecodingContainerProtocol {
     ///   - type: Type to decode
     ///   - key: JSON key under given type should be stored
     /// - Returns: Desired type value
-    public func decodeWith<T: Decodable & StringInitializable>(_ type: T.Type = T.self, forKey key: Key) throws -> T? {
+    public func decodeUnstable<T: Decodable & StringInitializable>(_ type: T.Type = T.self, forKey key: Key) throws -> T? {
         guard contains(key) else { return nil }
         guard !(try decodeNil(forKey: key)) else { return nil }
         
@@ -35,7 +35,7 @@ extension KeyedDecodingContainerProtocol {
     ///   - type: Type to decode
     ///   - key: JSON key under given type should be stored
     /// - Returns: Desired type value
-    public func decodeWith<T: Decodable & StringInitializable>(_ type: T.Type = T.self, forKey key: Key) throws -> T {
+    public func decodeUnstable<T: Decodable & StringInitializable>(_ type: T.Type = T.self, forKey key: Key) throws -> T {
         if let string = try? decode(String.self, forKey: key) {
             guard let value = T.init(rawValue: string) else {
                 throw DecodingError.dataCorruptedError(forKey: key,

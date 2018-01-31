@@ -1,3 +1,4 @@
+import Foundation
 import XCTest
 @testable import SLazeKit
 
@@ -25,6 +26,7 @@ class SLazeKitTests: XCTestCase {
     static var allTests = [
         ("testBasePath", testBasePath),
         ("testBasePort", testBasePort),
+        ("testRequestSetup", testRequestSetup),
     ]
     
     func testBasePath() {
@@ -33,5 +35,11 @@ class SLazeKitTests: XCTestCase {
     
     func testBasePort() {
         XCTAssertTrue(Configuration.basePort == 8765)
+    }
+    
+    func testRequestSetup() {
+        let request = Configuration.setup(URLRequest(url: URL(string: "www.yourdomain.com")!))
+        XCTAssertTrue(request.allHTTPHeaderFields?["X-Access-Token"] == "Your token")
+        XCTAssertTrue(request.allHTTPHeaderFields?["Content-Type"] == "application/json")
     }
 }

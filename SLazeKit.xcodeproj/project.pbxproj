@@ -24,6 +24,7 @@
 		623922782002D8C30018982A /* LazeConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623922762002D8C30018982A /* LazeConfiguration.swift */; };
 		6239227E2002DF1A0018982A /* Laze.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6239227D2002DF1A0018982A /* Laze.swift */; };
 		625B23AD1FF3462B001976C3 /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625B23AB1FF34625001976C3 /* Object.swift */; };
+		625B5F8F202288E700E72BCF /* StringPathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625B5F8E202288E700E72BCF /* StringPathTests.swift */; };
 		OBJ_32 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
 		OBJ_38 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_21 /* Model.swift */; };
 		OBJ_39 /* SLazeKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_22 /* SLazeKitTests.swift */; };
@@ -59,6 +60,7 @@
 		623922762002D8C30018982A /* LazeConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazeConfiguration.swift; sourceTree = "<group>"; };
 		6239227D2002DF1A0018982A /* Laze.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Laze.swift; sourceTree = "<group>"; };
 		625B23AB1FF34625001976C3 /* Object.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
+		625B5F8E202288E700E72BCF /* StringPathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringPathTests.swift; sourceTree = "<group>"; };
 		OBJ_10 /* Decodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decodable.swift; sourceTree = "<group>"; };
 		OBJ_11 /* NSManagedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObject.swift; sourceTree = "<group>"; };
 		OBJ_12 /* NSManagedObjectContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContext.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				OBJ_20 /* Models */,
 				OBJ_22 /* SLazeKitTests.swift */,
 				OBJ_23 /* StringInitializableTests.swift */,
+				625B5F8E202288E700E72BCF /* StringPathTests.swift */,
 			);
 			name = SLazeKitTests;
 			path = Tests/SLazeKitTests;
@@ -276,6 +279,7 @@
 				OBJ_39 /* SLazeKitTests.swift in Sources */,
 				625B23AD1FF3462B001976C3 /* Object.swift in Sources */,
 				OBJ_40 /* StringInitializableTests.swift in Sources */,
+				625B5F8F202288E700E72BCF /* StringPathTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
