@@ -54,7 +54,7 @@ extension Array where Element: EntityMapping {
     /// - Parameter context: Context on which fetch should be executed
     /// - Returns: Array of serialized object from EntityMapping response type.
     public func serialized<T: NSManagedObject>(_ context: NSManagedObjectContext?) throws -> [T] {
-        return try flatMap({ try $0.serialized(context) })
+        return try compactMap({ try $0.serialized(context) })
     }
 }
 
