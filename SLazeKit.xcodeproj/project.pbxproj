@@ -57,6 +57,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6236959120B66E92000D7684 /* SLazeKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLazeKit.h; sourceTree = "<group>"; };
 		623922762002D8C30018982A /* LazeConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazeConfiguration.swift; sourceTree = "<group>"; };
 		6239227D2002DF1A0018982A /* Laze.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Laze.swift; sourceTree = "<group>"; };
 		625B23AB1FF34625001976C3 /* Object.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
@@ -164,6 +165,7 @@
 		OBJ_8 /* SLazeKit */ = {
 			isa = PBXGroup;
 			children = (
+				6236959120B66E92000D7684 /* SLazeKit.h */,
 				OBJ_9 /* Extensions */,
 				OBJ_14 /* Protocols */,
 				6239227D2002DF1A0018982A /* Laze.swift */,
