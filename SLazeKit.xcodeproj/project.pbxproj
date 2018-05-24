@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		623695B920B67437000D7684 /* SLazeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6236959120B66E92000D7684 /* SLazeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		623922782002D8C30018982A /* LazeConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623922762002D8C30018982A /* LazeConfiguration.swift */; };
 		6239227E2002DF1A0018982A /* Laze.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6239227D2002DF1A0018982A /* Laze.swift */; };
 		625B23AD1FF3462B001976C3 /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625B23AB1FF34625001976C3 /* Object.swift */; };
@@ -190,12 +191,24 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		623695B820B67427000D7684 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				623695B920B67437000D7684 /* SLazeKit.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		"SLazeKit::SLazeKit" /* SLazeKit */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_45 /* Build configuration list for PBXNativeTarget "SLazeKit" */;
 			buildPhases = (
 				OBJ_48 /* Sources */,
+				623695B820B67427000D7684 /* Headers */,
 				OBJ_56 /* Frameworks */,
 			);
 			buildRules = (
