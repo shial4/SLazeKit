@@ -47,7 +47,7 @@ public class SLazeKit<Config: LazeConfiguration> {
     
     class func networkTask(path: String, method: HTTPMethod? = nil, queryItems: [URLQueryItem]? = nil, body: String, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> Void) -> URLSessionDataTask? {
         guard let url = components(for: path, queryItems: queryItems)?.url else {
-            handler((nil,nil), NSError(domain: "Unable to get url from components", code: NSURLErrorBadURL, userInfo: nil))
+            handler((nil,nil), urlConstructError(path, method, queryItems, body))
             return nil
         }
         
@@ -58,7 +58,7 @@ public class SLazeKit<Config: LazeConfiguration> {
     
     class func networkTask<B: Encodable>(path: String, method: HTTPMethod? = nil, queryItems: [URLQueryItem]? = nil, body: B, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> Void) -> URLSessionDataTask? {
         guard let url = components(for: path, queryItems: queryItems)?.url else {
-            handler((nil,nil), NSError(domain: "Unable to get url from components", code: NSURLErrorBadURL, userInfo: nil))
+            handler((nil,nil), urlConstructError(path, method, queryItems, body))
             return nil
         }
         
@@ -75,7 +75,7 @@ public class SLazeKit<Config: LazeConfiguration> {
     
     class func networkTask<T: Decodable>(path: String, method: HTTPMethod? = nil, queryItems: [URLQueryItem]? = nil, body: String, handler: @escaping (_ response: NetworkResponse, _ result: T?, _ error: Error?) -> Void) -> URLSessionDataTask? {
         guard let url = components(for: path, queryItems: queryItems)?.url else {
-            handler((nil,nil), nil, NSError(domain: "Unable to create url from components", code: NSURLErrorBadURL, userInfo: nil))
+            handler((nil,nil), nil, urlConstructError(path, method, queryItems, body))
             return nil
         }
         
@@ -87,7 +87,7 @@ public class SLazeKit<Config: LazeConfiguration> {
     
     class func networkTask<T: Decodable, B: Encodable>(path: String, method: HTTPMethod? = nil, queryItems: [URLQueryItem]? = nil, body: B, handler: @escaping (_ response: NetworkResponse, _ result: T?, _ error: Error?) -> Void) -> URLSessionDataTask? {
         guard let url = components(for: path, queryItems: queryItems)?.url else {
-            handler((nil,nil), nil, NSError(domain: "Unable to get url from components", code: NSURLErrorBadURL, userInfo: nil))
+            handler((nil,nil), nil, urlConstructError(path, method, queryItems, body))
             return nil
         }
         
@@ -104,7 +104,7 @@ public class SLazeKit<Config: LazeConfiguration> {
     
     class func networkTask<B: Encodable>(path: String, method: HTTPMethod? = nil, queryItems: [URLQueryItem]? = nil, body: [B], handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> Void) -> URLSessionDataTask? {
         guard let url = components(for: path, queryItems: queryItems)?.url else {
-            handler((nil,nil), NSError(domain: "Unable to get url from components", code: NSURLErrorBadURL, userInfo: nil))
+            handler((nil,nil), urlConstructError(path, method, queryItems, body))
             return nil
         }
         
@@ -121,7 +121,7 @@ public class SLazeKit<Config: LazeConfiguration> {
     
     class func networkTask<T: Decodable, B: Encodable>(path: String, method: HTTPMethod? = nil, queryItems: [URLQueryItem]? = nil, body: [B], handler: @escaping (_ response: NetworkResponse, _ result: T?, _ error: Error?) -> Void) -> URLSessionDataTask? {
         guard let url = components(for: path, queryItems: queryItems)?.url else {
-            handler((nil,nil), nil, NSError(domain: "Unable to get url from components", code: NSURLErrorBadURL, userInfo: nil))
+            handler((nil,nil), nil, urlConstructError(path, method, queryItems, body))
             return nil
         }
         
@@ -138,7 +138,7 @@ public class SLazeKit<Config: LazeConfiguration> {
     
     class func networkTask(path: String, method: HTTPMethod? = nil, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> Void) -> URLSessionDataTask? {
         guard let url = components(for: path, queryItems: queryItems)?.url else {
-            handler((nil,nil), NSError(domain: "Unable to get url from components", code: NSURLErrorBadURL, userInfo: nil))
+            handler((nil,nil), urlConstructError(path, method, queryItems, nil))
             return nil
         }
         return networkTask(request: urlRequest(url, method: method), handler: handler)
@@ -146,7 +146,7 @@ public class SLazeKit<Config: LazeConfiguration> {
     
     class func networkTask<T: Decodable>(path: String, method: HTTPMethod? = nil, queryItems: [URLQueryItem]? = nil, handler: @escaping (_ response: NetworkResponse, _ result: T?, _ error: Error?) -> Void) -> URLSessionDataTask? {
         guard let url = components(for: path, queryItems: queryItems)?.url else {
-            handler((nil,nil), nil, NSError(domain: "Unable to get url from components", code: NSURLErrorBadURL, userInfo: nil))
+            handler((nil,nil), nil, urlConstructError(path, method, queryItems, nil))
             return nil
         }
         return networkTask(request: urlRequest(url, method: method), handler: handler)
@@ -165,6 +165,14 @@ public class SLazeKit<Config: LazeConfiguration> {
         urlComponents?.port = Config.basePort
         urlComponents?.queryItems = queryItems
         return urlComponents
+    }
+    
+    private class func urlConstructError(_ path: String, _ method: HTTPMethod? = nil, _ queryItems: [URLQueryItem]? = nil, _ body: Any?) -> NSError {
+        return NSError(domain: "", code: NSURLErrorBadURL,
+                       userInfo: ["path":path,
+                                  "method":"\(method ?? .GET)",
+                        "queryItems":"\(queryItems ?? [])",
+                        "body":String(describing: body)])
     }
     
     private class func synchronize(_ obj: Any) throws {
