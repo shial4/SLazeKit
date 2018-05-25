@@ -13,7 +13,32 @@ public enum HTTPMethod {
 }
 
 /// Default laze configuration
-open class DefaultLazeConfiguration: LazeConfiguration {}
+open class DefaultLazeConfiguration: LazeConfiguration {
+    /// Provide base path for your API requests.
+    open static var basePath: String? { return nil }
+    /// Additional you can set port for your requests.
+    open static var basePort: Int? { return nil }
+    /// Optional provider for JSONDecoder instance.
+    open static var decoder: JSONDecoder { return JSONDecoder() }
+    /// Optional provider for JSONDecoder instance.
+    open static var urlSession: URLSession { return URLSession.shared }
+    
+    /// Global outgoing `URLRequest` customization. Called everytime request is created before executed.
+    ///
+    /// - Parameter request: `URLRequest` object to setup
+    /// - Returns: already setup and customize URLRequest object
+    open static func setup(_ request: URLRequest) -> URLRequest { return request }
+    
+    /// Global handler for `HTTPURLResponse`. Called everytime response is capture.
+    ///
+    /// - Parameter request: `HTTPURLResponse` object to handle
+    open static func handle(_ response: HTTPURLResponse?) {}
+    
+    /// Required override of this method which will provide Context for bacground execution.
+    ///
+    /// - Returns: NSManagedObjectContext
+    open static func newBackgroundContext() -> NSManagedObjectContext? { return nil }
+}
 
 /// SLazeKit is an easy to use restful collection of extensions and classes. Maps your rest api request into models and provides coredata serialization.
 public class SLazeKit<Config: LazeConfiguration> {
