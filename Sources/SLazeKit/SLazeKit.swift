@@ -13,7 +13,7 @@ public enum HTTPMethod {
 }
 
 /// Default laze configuration
-open class DefaultConfiguration: LazeConfiguration {}
+open class DefaultLazeConfiguration: LazeConfiguration {}
 
 /// SLazeKit is an easy to use restful collection of extensions and classes. Maps your rest api request into models and provides coredata serialization.
 public class SLazeKit<Config: LazeConfiguration> {

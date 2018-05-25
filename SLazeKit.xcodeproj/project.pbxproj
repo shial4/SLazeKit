@@ -21,7 +21,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		623695B920B67437000D7684 /* SLazeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6236959120B66E92000D7684 /* SLazeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		623922782002D8C30018982A /* LazeConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623922762002D8C30018982A /* LazeConfiguration.swift */; };
 		6239227E2002DF1A0018982A /* Laze.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6239227D2002DF1A0018982A /* Laze.swift */; };
 		625B23AD1FF3462B001976C3 /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625B23AB1FF34625001976C3 /* Object.swift */; };
@@ -58,8 +57,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		6236959120B66E92000D7684 /* SLazeKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLazeKit.h; sourceTree = "<group>"; };
-		623695B120B6717E000D7684 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		623922762002D8C30018982A /* LazeConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazeConfiguration.swift; sourceTree = "<group>"; };
 		6239227D2002DF1A0018982A /* Laze.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Laze.swift; sourceTree = "<group>"; };
 		625B23AB1FF34625001976C3 /* Object.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
@@ -171,8 +168,6 @@
 				OBJ_14 /* Protocols */,
 				6239227D2002DF1A0018982A /* Laze.swift */,
 				OBJ_17 /* SLazeKit.swift */,
-				6236959120B66E92000D7684 /* SLazeKit.h */,
-				623695B120B6717E000D7684 /* Info.plist */,
 			);
 			name = SLazeKit;
 			path = Sources/SLazeKit;
@@ -196,7 +191,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				623695B920B67437000D7684 /* SLazeKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
