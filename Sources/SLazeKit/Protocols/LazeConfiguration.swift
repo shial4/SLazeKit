@@ -30,8 +30,19 @@ public protocol LazeConfiguration {
     /// - Parameter request: `HTTPURLResponse` object to handle
     static func handle(_ response: HTTPURLResponse?)
     
-    /// Required override of this method which will provide Context for bacground execution.
+    /// Override of this method which will provide Context for bacground execution.
     ///
     /// - Returns: NSManagedObjectContext
     static func newBackgroundContext() -> NSManagedObjectContext?
+}
+
+extension LazeConfiguration {
+    public static var basePort: Int? { return nil }
+    public static var decoder: JSONDecoder { return JSONDecoder() }
+    public static var urlSession: URLSession { return URLSession.shared }
+    
+    public static func setup(_ request: URLRequest) -> URLRequest { return request }
+    public static func handle(_ response: HTTPURLResponse?) {}
+    
+    public static func newBackgroundContext() -> NSManagedObjectContext? { return nil }
 }
