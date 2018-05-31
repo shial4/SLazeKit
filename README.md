@@ -43,7 +43,7 @@ class func getRequest(for modelId: String, success: @escaping ((Model?) ->()), f
 }
 ```
 
-If `ResponseModel` conforms to `EntityMapping` protocol it will be synchronize with CoreData. That means if mode object already exist it will update it or creat new instance and fill `NSManagedObject` with response data. You can serialize your response to recive `CoreData` object on given context by:
+If `ResponseModel` conforms to `EntityMapping` protocol it will be synchronize with CoreData. That means if mode object already exist it will update it or create new instance and fill `NSManagedObject` with response data. You can serialize your response to receive `CoreData` object on given context by:
 
 ```swift
 try result?.serialized(NSManagedObjectContext) as? Model)
