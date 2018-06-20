@@ -15,7 +15,12 @@ public enum HTTPMethod {
 /// SLazeKit is an easy to use restful collection of extensions and classes. Maps your rest api request into models and provides coredata serialization.
 public class SLazeKit<Config: LazeConfiguration> {
     class func networkTask(request: URLRequest, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> Void) -> URLSessionDataTask? {
-        let task = Config.urlSession.dataTask(with: Config.setup(request)) { (data, response, error) in
+        guard let req = Config.setup(request) else {
+            handler((nil,nil), NSError(domain: "", code: NSURLErrorCancelled,
+                                       userInfo: ["reason":"Client config return nil request"]))
+            return nil
+        }
+        let task = Config.urlSession.dataTask(with: req) { (data, response, error) in
             Config.handle(response as? HTTPURLResponse)
             handler((data, response as? HTTPURLResponse), error)
         }
@@ -24,7 +29,12 @@ public class SLazeKit<Config: LazeConfiguration> {
     }
     
     class func networkTask<T: Decodable>(request: URLRequest, handler: @escaping (_ response: NetworkResponse, _ result: T?, _ error: Error?) -> Void) -> URLSessionDataTask? {
-        let task = Config.urlSession.dataTask(with: Config.setup(request)) { (data, response, error) in
+        guard let req = Config.setup(request) else {
+            handler((nil,nil),nil, NSError(domain: "", code: NSURLErrorCancelled,
+                                       userInfo: ["reason":"Client config return nil request"]))
+            return nil
+        }
+        let task = Config.urlSession.dataTask(with: req) { (data, response, error) in
             Config.handle(response as? HTTPURLResponse)
             if let data = data, error == nil {
                 do {

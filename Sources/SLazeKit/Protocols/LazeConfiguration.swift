@@ -23,7 +23,7 @@ public protocol LazeConfiguration {
     ///
     /// - Parameter request: `URLRequest` object to setup
     /// - Returns: already setup and customize URLRequest object
-    static func setup(_ request: URLRequest) -> URLRequest
+    static func setup(_ request: URLRequest) -> URLRequest?
     
     /// Global handler for `HTTPURLResponse`. Called everytime response is capture.
     ///
