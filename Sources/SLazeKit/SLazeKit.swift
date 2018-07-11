@@ -1,8 +1,4 @@
 import Foundation
-import CoreData
-
-public typealias EntityMappingCodable = EntityMapping & Codable
-public typealias EntityMappingDecodable = EntityMapping & Decodable
 
 /// NetworkResponse tuple holding response `Data` and `HTTPURLResponse`
 public typealias NetworkResponse = (data: Data?, http: HTTPURLResponse?)
@@ -12,7 +8,7 @@ public enum HTTPMethod {
     case GET, POST, PUT, PATCH, DELETE, COPY, HEAD, OPTIONS, LINK, UNLINK, PURGE, LOCK, UNLOCK, PROPFIND, VIEW
 }
 
-/// SLazeKit is an easy to use restful collection of extensions and classes. Maps your rest api request into models and provides coredata serialization.
+/// SLazeKit is an easy to use restful collection of extensions and classes. Maps your rest api request into models and provides serialization of your extension choice.
 public class SLazeKit<Config: LazeConfiguration> {
     class func networkTask(request: URLRequest, handler: @escaping (_ response: NetworkResponse, _ error: Error?) -> Void) -> URLSessionDataTask? {
         guard let req = Config.setup(request) else {
@@ -39,7 +35,7 @@ public class SLazeKit<Config: LazeConfiguration> {
             if let data = data, error == nil {
                 do {
                     let object = try Config.decoder.decode(T.self, from: data)
-                    try synchronize(object)
+                    try Config.synchronize(object)
                     handler((data, response as? HTTPURLResponse), object, nil)
                 } catch {
                     handler((data, response as? HTTPURLResponse), nil, error)
@@ -180,17 +176,6 @@ public class SLazeKit<Config: LazeConfiguration> {
                                   "method":"\(method ?? .GET)",
                         "queryItems":"\(queryItems ?? [])",
                         "body":String(describing: body)])
-    }
-    
-    private class func synchronize(_ obj: Any) throws {
-        guard let context = Config.newBackgroundContext() else { return }
-        if let array = obj as? [EntityMapping] {
-            array.forEach({_ = try? $0.map(context)})
-        } else {
-            guard let mapper = obj as? EntityMapping else { return }
-            _ = try mapper.map(context)
-        }
-        context.commit()
     }
 }
 

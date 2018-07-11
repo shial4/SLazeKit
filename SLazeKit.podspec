@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'SLazeKit'
-  s.version      = '0.1.9'
+  s.version      = '0.2.0'
   s.summary      = 'Swift restful manager.'
   s.description  = <<-DESC
     SLazeKit is an easy to use Swift restful collection of extensions and classes. Don't spend hours writing your code to map your rest api request into models and serialization. stop wasting your time!
@@ -14,6 +14,5 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => 'https://github.com/shial4/SLazeKit.git', :tag => s.version.to_s }
   s.source_files  = 'Sources/**/*.swift'
-  s.frameworks  = 'CoreData'
 
 end

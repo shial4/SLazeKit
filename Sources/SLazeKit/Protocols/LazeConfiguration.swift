@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import CoreData
 
 /// LazeConfiguration protocol represents API configuration 
 public protocol LazeConfiguration {
@@ -30,10 +29,12 @@ public protocol LazeConfiguration {
     /// - Parameter request: `HTTPURLResponse` object to handle
     static func handle(_ response: HTTPURLResponse?)
     
-    /// Override of this method which will provide Context for bacground execution.
+    
+    /// Method dedicated to be use for synchronize object into persisten store
     ///
-    /// - Returns: NSManagedObjectContext
-    static func newBackgroundContext() -> NSManagedObjectContext?
+    /// - Parameter obj: encoded object
+    /// - Throws: error occured during the process
+    static func synchronize(_ obj: Any)
 }
 
 extension LazeConfiguration {
@@ -44,5 +45,5 @@ extension LazeConfiguration {
     public static func setup(_ request: URLRequest) -> URLRequest { return request }
     public static func handle(_ response: HTTPURLResponse?) {}
     
-    public static func newBackgroundContext() -> NSManagedObjectContext? { return nil }
+    public static func synchronize(_ obj: Any) {}
 }

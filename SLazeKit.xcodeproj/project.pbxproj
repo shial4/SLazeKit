@@ -23,18 +23,13 @@
 /* Begin PBXBuildFile section */
 		623922782002D8C30018982A /* LazeConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623922762002D8C30018982A /* LazeConfiguration.swift */; };
 		6239227E2002DF1A0018982A /* Laze.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6239227D2002DF1A0018982A /* Laze.swift */; };
-		625B23AD1FF3462B001976C3 /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625B23AB1FF34625001976C3 /* Object.swift */; };
 		625B5F8F202288E700E72BCF /* StringPathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625B5F8E202288E700E72BCF /* StringPathTests.swift */; };
 		OBJ_32 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
-		OBJ_38 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_21 /* Model.swift */; };
 		OBJ_39 /* SLazeKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_22 /* SLazeKitTests.swift */; };
 		OBJ_40 /* StringInitializableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_23 /* StringInitializableTests.swift */; };
 		OBJ_42 /* SLazeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "SLazeKit::SLazeKit::Product" /* SLazeKit.framework */; };
 		OBJ_49 /* Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* Decodable.swift */; };
-		OBJ_50 /* NSManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* NSManagedObject.swift */; };
-		OBJ_51 /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* NSManagedObjectContext.swift */; };
 		OBJ_52 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* String.swift */; };
-		OBJ_53 /* EntityMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* EntityMapping.swift */; };
 		OBJ_54 /* StringInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* StringInitializable.swift */; };
 		OBJ_55 /* SLazeKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_17 /* SLazeKit.swift */; };
 /* End PBXBuildFile section */
@@ -59,16 +54,11 @@
 /* Begin PBXFileReference section */
 		623922762002D8C30018982A /* LazeConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazeConfiguration.swift; sourceTree = "<group>"; };
 		6239227D2002DF1A0018982A /* Laze.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Laze.swift; sourceTree = "<group>"; };
-		625B23AB1FF34625001976C3 /* Object.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
 		625B5F8E202288E700E72BCF /* StringPathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringPathTests.swift; sourceTree = "<group>"; };
 		OBJ_10 /* Decodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decodable.swift; sourceTree = "<group>"; };
-		OBJ_11 /* NSManagedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObject.swift; sourceTree = "<group>"; };
-		OBJ_12 /* NSManagedObjectContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContext.swift; sourceTree = "<group>"; };
 		OBJ_13 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
-		OBJ_15 /* EntityMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityMapping.swift; sourceTree = "<group>"; };
 		OBJ_16 /* StringInitializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringInitializable.swift; sourceTree = "<group>"; };
 		OBJ_17 /* SLazeKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLazeKit.swift; sourceTree = "<group>"; };
-		OBJ_21 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		OBJ_22 /* SLazeKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLazeKitTests.swift; sourceTree = "<group>"; };
 		OBJ_23 /* StringInitializableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringInitializableTests.swift; sourceTree = "<group>"; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
@@ -98,7 +88,6 @@
 		OBJ_14 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_15 /* EntityMapping.swift */,
 				OBJ_16 /* StringInitializable.swift */,
 				623922762002D8C30018982A /* LazeConfiguration.swift */,
 			);
@@ -116,7 +105,6 @@
 		OBJ_19 /* SLazeKitTests */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_20 /* Models */,
 				OBJ_22 /* SLazeKitTests.swift */,
 				OBJ_23 /* StringInitializableTests.swift */,
 				625B5F8E202288E700E72BCF /* StringPathTests.swift */,
@@ -124,15 +112,6 @@
 			name = SLazeKitTests;
 			path = Tests/SLazeKitTests;
 			sourceTree = SOURCE_ROOT;
-		};
-		OBJ_20 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_21 /* Model.swift */,
-				625B23AB1FF34625001976C3 /* Object.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
 		};
 		OBJ_24 /* Products */ = {
 			isa = PBXGroup;
@@ -177,8 +156,6 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_10 /* Decodable.swift */,
-				OBJ_11 /* NSManagedObject.swift */,
-				OBJ_12 /* NSManagedObjectContext.swift */,
 				OBJ_13 /* String.swift */,
 			);
 			path = Extensions;
@@ -286,9 +263,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_38 /* Model.swift in Sources */,
 				OBJ_39 /* SLazeKitTests.swift in Sources */,
-				625B23AD1FF3462B001976C3 /* Object.swift in Sources */,
 				OBJ_40 /* StringInitializableTests.swift in Sources */,
 				625B5F8F202288E700E72BCF /* StringPathTests.swift in Sources */,
 			);
@@ -299,11 +274,8 @@
 			buildActionMask = 0;
 			files = (
 				OBJ_49 /* Decodable.swift in Sources */,
-				OBJ_50 /* NSManagedObject.swift in Sources */,
 				6239227E2002DF1A0018982A /* Laze.swift in Sources */,
-				OBJ_51 /* NSManagedObjectContext.swift in Sources */,
 				OBJ_52 /* String.swift in Sources */,
-				OBJ_53 /* EntityMapping.swift in Sources */,
 				OBJ_54 /* StringInitializable.swift in Sources */,
 				623922782002D8C30018982A /* LazeConfiguration.swift in Sources */,
 				OBJ_55 /* SLazeKit.swift in Sources */,

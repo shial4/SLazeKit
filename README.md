@@ -19,7 +19,7 @@ SLazeKit is an easy to use Swift restful collection of extensions and classes. D
 
 **SLazeKit allows you:**
 - map your models by  `Codable` protocol
-- serialize `CoreData` models from API response
+- serialize `CoreData` models from API response with [SLazeCoreData](https://github.com/shial4/SLazeCoreData.git) extension
 - fast and simple extend your models with `API` & `CoreData`
 
 <p align="center">
@@ -124,10 +124,11 @@ extension Default {
         }
     }
     
-    /// Required override of this method which will provide Context for bacground execution.
+    /// Method dedicated to be use for synchronize object into persisten store
     ///
-    /// - Returns: NSManagedObjectContext
-    open class func newBackgroundContext() -> NSManagedObjectContext? { return nil }
+    /// - Parameter obj: encoded object
+    /// - Throws: error occured during the process
+    open static func synchronize(_ obj: Any) {}
 }
 ```
 
