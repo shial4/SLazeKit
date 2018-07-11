@@ -35,7 +35,7 @@ public class SLazeKit<Config: LazeConfiguration> {
             if let data = data, error == nil {
                 do {
                     let object = try Config.decoder.decode(T.self, from: data)
-                    try Config.synchronize(object)
+                    Config.synchronize(object)
                     handler((data, response as? HTTPURLResponse), object, nil)
                 } catch {
                     handler((data, response as? HTTPURLResponse), nil, error)
