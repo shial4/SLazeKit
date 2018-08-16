@@ -19,7 +19,7 @@ SLazeKit is an easy to use Swift restful collection of extensions and classes. D
 
 **SLazeKit allows you:**
 - map your models by  `Codable` protocol
-- serialize `CoreData` models from API response with [SLazeCoreData](https://github.com/shial4/SLazeCoreData.git) extension
+- serialize `CoreData` models from API response with [SLazeCoreData](https://github.com/shial4/SLazeCoreData.git) or any other extension
 - fast and simple extend your models with `API` & `CoreData`
 
 <p align="center">

@@ -8,7 +8,7 @@ struct Configuration: LazeConfiguration {
     static var decoder: JSONDecoder { return JSONDecoder() }
     static var urlSession: URLSession { return URLSession.shared }
     
-    static func setup(_ request: URLRequest) -> URLRequest {
+    static func setup(_ request: URLRequest) -> URLRequest? {
         var request: URLRequest = request
         request.setValue("Your token", forHTTPHeaderField: "X-Access-Token")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -39,7 +39,7 @@ class SLazeKitTests: XCTestCase {
     
     func testRequestSetup() {
         let request = Configuration.setup(URLRequest(url: URL(string: "www.yourdomain.com")!))
-        XCTAssertTrue(request.allHTTPHeaderFields?["X-Access-Token"] == "Your token")
-        XCTAssertTrue(request.allHTTPHeaderFields?["Content-Type"] == "application/json")
+        XCTAssertTrue(request?.allHTTPHeaderFields?["X-Access-Token"] == "Your token")
+        XCTAssertTrue(request?.allHTTPHeaderFields?["Content-Type"] == "application/json")
     }
 }
