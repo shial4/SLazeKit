@@ -2,7 +2,7 @@
 
 <p align="center">
     <a href="http://swift.org">
-        <img src="https://img.shields.io/badge/Swift-4.0-brightgreen.svg" alt="Language" />
+        <img src="https://img.shields.io/badge/Swift-4.2-brightgreen.svg" alt="Language" />
         </a>
         <a href="https://raw.githubusercontent.com/shial4/SLazeKit/master/LICENSE">
             <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License" />
@@ -83,7 +83,7 @@ Clone the repo and drag the folder `SLazeKit` into your Xcode project.
 
 **Swift Package Manager:**
 
-Add the line `.package(url: "https://github.com/shial4/SLazeKit.git", from: "0.1.6"),` to your `Package.swift`
+Add the line `.package(url: "https://github.com/shial4/SLazeKit.git", from: "0.2.1"),` to your `Package.swift`
 
 **Swift Package Manager in your iOS Project:**
 This project demonstrates a working method for using Swift Package Manager (SPM) to manage the dependencies of an iOS project.

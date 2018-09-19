@@ -63,7 +63,7 @@
 		OBJ_23 /* StringInitializableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringInitializableTests.swift; sourceTree = "<group>"; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		"SLazeKit::SLazeKit::Product" /* SLazeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SLazeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"SLazeKit::SLazeKitTests::Product" /* SLazeKitTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = SLazeKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		"SLazeKit::SLazeKitTests::Product" /* SLazeKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = SLazeKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +229,14 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 9999;
+				TargetAttributes = {
+					"SLazeKit::SLazeKit" = {
+						LastSwiftMigration = 1000;
+					};
+					"SLazeKit::SLazeKitTests" = {
+						LastSwiftMigration = 1000;
+					};
+				};
 			};
 			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "SLazeKit" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -351,7 +359,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGET_NAME = SLazeKitTests;
 			};
 			name = Debug;
@@ -369,7 +377,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGET_NAME = SLazeKitTests;
 			};
 			name = Release;
@@ -411,7 +419,7 @@
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGET_NAME = SLazeKit;
 			};
 			name = Debug;
@@ -433,7 +441,7 @@
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGET_NAME = SLazeKit;
 			};
 			name = Release;
